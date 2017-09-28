@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Filemanager {
 
@@ -10,6 +11,7 @@ public class Filemanager {
         FileReader reader = null;
         BufferedReader bf;
 
+        ArrayList<Transmisor> milista= new ArrayList<Transmisor>();
         try {
             archivo= new File(nombreFichero);
             reader = new FileReader(archivo);
@@ -17,8 +19,14 @@ public class Filemanager {
             String lectura;
             String [] datos;
             lectura= bf.readLine();
-            datos = lectura.split("\\s+");
-            System.out.print(datos);
+            Transmisor tr;
+
+            while(lectura!=null){
+                datos = lectura.split("\\s+");
+                tr = new Transmisor(Integer.parseInt(datos[1]),Integer.parseInt(datos[2]));
+                milista.add(tr);
+                lectura= bf.readLine();
+            }
 
         }catch (Exception e){}
 
