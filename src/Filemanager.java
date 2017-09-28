@@ -2,9 +2,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.security.PublicKey;
 
-public class filemanager {
+public class Filemanager {
     public static void LeeNodos(String nombreFichero) throws IOException{
         File archivo;
         FileReader reader = null;
