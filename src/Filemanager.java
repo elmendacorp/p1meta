@@ -1,8 +1,5 @@
 import javafx.util.Pair;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -10,16 +7,21 @@ import java.util.List;
 
 public class Filemanager {
 
-    private List<Pair<Integer,Integer>> transmisores;
+    private List<Pair<Integer, Integer>> transmisores;
+    private List<Pair<Integer, List<Integer>>> frecuencias;
 
-    public Filemanager(){
+    public Filemanager(String path) {
         transmisores = new ArrayList<>();
+        leeTransmisores(path + "var.txt");
+
+        frecuencias = new ArrayList<>();
+        leeFrecuencias(path + "dom.txt");
+
     }
 
-    public void leeTransmisores(String nombreFichero){
-
+    private void leeTransmisores(String rutaFichero) {
         try {
-            FileInputStream fstream = new FileInputStream(nombreFichero);
+            FileInputStream fstream = new FileInputStream(rutaFichero);
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
             String strLine = br.readLine();
@@ -39,31 +41,43 @@ public class Filemanager {
             }
 
             br.close();
-        }catch (Exception e){
-            System.out.println ("Fallo al leer el fichero de transmisores: " + e);
+        } catch (Exception e) {
+            System.out.println("Fallo al leer el fichero de transmisores: " + e);
         }
-
     }
-    public static void leeFrecuencias(String nombreFichero) throws IOException{
-        File archivo;
-        FileReader reader = null;
-        BufferedReader bf;
 
+    private void leeFrecuencias(String rutaFichero) {
         try {
-            archivo= new File(nombreFichero);
-            reader = new FileReader(archivo);
-            bf = new BufferedReader(reader);
-            String lectura;
-            String [] datos;
-            lectura= bf.readLine();
-            datos = lectura.split("\\s+");
-            System.out.print(datos);
+            FileInputStream fstream = new FileInputStream(rutaFichero);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
-        }catch (Exception e){}
+            String strLine = br.readLine();
 
+            while (strLine != null && strLine.length() != 1) {
+
+                String[] cadena;
+                cadena = strLine.split("\\s+");
+
+                List<Integer> aux = new ArrayList<>();
+
+                for (int i = 2; i < cadena.length; ++i) {
+                    aux.add(Integer.parseInt(cadena[i]));
+                }
+
+                Pair<Integer, List<Integer>> frec = new Pair<>(Integer.parseInt(cadena[1]), aux);
+                frecuencias.add(frec);
+
+                strLine = br.readLine();
+            }
+
+            br.close();
+        } catch (Exception e) {
+            System.out.println("Fallo al leer el fichero de frecuencias: " + e);
+        }
+    }
+
+    private void leeRestricciones(String rutaFichero) {
 
     }
-    public static void leeRestricciones(String nombreFichero) throws IOException{}
-
 
 }
