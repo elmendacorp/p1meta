@@ -10,4 +10,12 @@ public class Frecuencia {
     public static void anadeFrecuencia(int valor){
         frecuencias.add(valor);
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public static ArrayList<Integer> getFrecuencias() {
+        return frecuencias;
+    }
 }

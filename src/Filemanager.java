@@ -31,7 +31,6 @@ public class Filemanager {
         try {
             FileInputStream fstream = new FileInputStream(rutaFichero);
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-
             String strLine = br.readLine();
 
             while (strLine != null && strLine.length() != 1) {
@@ -85,7 +84,24 @@ public class Filemanager {
     }
 
     private void leeRestricciones(String rutaFichero) {
+        try{
+            FileInputStream fstream = new FileInputStream(rutaFichero);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+            String strLine = br.readLine();
 
+            while (strLine != null && strLine.length() != 1) {
+
+                String[] cadena;
+                cadena = strLine.split("\\s+");
+
+                List<Integer> aux = new ArrayList<>();
+
+
+                strLine = br.readLine();
+            }
+
+            br.close();
+        }catch(Exception e){}
     }
 
 }
