@@ -36,6 +36,10 @@ public class Filemanager {
         return restricciones;
     }
 
+    /**
+     * Funcion que parsea el fichero de conexiones de los nodos y los almacena
+     * @param rutaFichero ruta del archivo con los datos
+     */
     private void leeTransmisores(String rutaFichero) {
         try {
             FileInputStream fstream = new FileInputStream(rutaFichero);
@@ -62,6 +66,10 @@ public class Filemanager {
         }
     }
 
+    /**
+     * Funcion que parsea el fichero de frecuencias y las almacena
+     * @param rutaFichero ruta de archivo con los datos
+     */
     private void leeFrecuencias(String rutaFichero) {
         try {
             FileInputStream fstream = new FileInputStream(rutaFichero);
@@ -92,6 +100,10 @@ public class Filemanager {
         }
     }
 
+    /**
+     * Funcion que parsea el archivo de restricciones y lo almacena
+     * @param rutaFichero ruta del archivo con los datos
+     */
     private void leeRestricciones(String rutaFichero) {
         Restriccion mirestriccion;
         try{
