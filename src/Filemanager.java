@@ -19,6 +19,14 @@ public class Filemanager {
 
     }
 
+    public List<Pair<Integer, Integer>> getTransmisores(){
+        return transmisores;
+    }
+
+    public List<Pair<Integer, List<Integer>>> getFrecuencias(){
+        return frecuencias;
+    }
+
     private void leeTransmisores(String rutaFichero) {
         try {
             FileInputStream fstream = new FileInputStream(rutaFichero);
