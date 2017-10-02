@@ -1,24 +1,35 @@
 public class Transmisor {
-    private static int id;
-    private static int frecuencias;
-    public Transmisor(int valor, int frec){
-        id = valor;
-        frecuencias= frec;
+    private int id;
+    private RangoFrec rango;
+    private int frecuencia;
+
+    public Transmisor(int _id, RangoFrec _rango){
+        id = _id;
+        rango = _rango;
     }
 
-    public static int getId() {
+
+    public int getId() {
         return id;
     }
 
-    public static void setId(int id) {
-        Transmisor.id = id;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public static int getFrecuencias() {
-        return frecuencias;
+    public RangoFrec getRango() {
+        return rango;
     }
 
-    public static void setFrecuencias(int frecuencias) {
-        Transmisor.frecuencias = frecuencias;
+    public void setRango(RangoFrec rango) {
+        this.rango = rango;
+    }
+
+    public int getFrecuencia() {
+        return frecuencia;
+    }
+
+    public void setFrecuencia(int frecuencia) {
+        this.frecuencia = frecuencia;
     }
 }
