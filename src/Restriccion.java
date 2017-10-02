@@ -4,9 +4,14 @@ public class Restriccion {
     private int tolerancia;
     private int penalizacion;
 
-    public int getId() {
-        return id;
+    public Restriccion(int var1, int var2, int var3, int var4){
+        id=var1;
+        id_restriccion=var2;
+        tolerancia=var3;
+        penalizacion=var4;
     }
+
+    public int getId() { return id; }
 
     public void setId(int id) {
         this.id = id;
