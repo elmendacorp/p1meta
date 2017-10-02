@@ -22,6 +22,9 @@ public class Filemanager {
         frecuencias = new ArrayList<>();
         leeFrecuencias(path + "dom.txt");
 
+        restricciones = new ArrayList<>();
+        leeRestricciones(path + "ctr.txt");
+
     }
 
     public List<Pair<Integer, Integer>> getTransmisores(){
