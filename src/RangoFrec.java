@@ -4,9 +4,9 @@ public class RangoFrec {
     private int id;
     private ArrayList<Integer> frecuencias;
 
-    public RangoFrec(int _id, ArrayList<Integer> _frecuencias) {
+    public RangoFrec(int _id) {
         id = _id;
-        frecuencias = new ArrayList<>(_frecuencias);
+        frecuencias = new ArrayList<>();
     }
 
     public void aniadeFrecuencia(int valor) {

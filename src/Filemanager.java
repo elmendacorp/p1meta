@@ -1,9 +1,7 @@
-import javafx.util.Pair;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Filemanager {
 
@@ -81,13 +79,12 @@ public class Filemanager {
                 String[] cadena;
                 cadena = strLine.split("\\s+");
 
-                ArrayList<Integer> aux = new ArrayList<>();
+                RangoFrec rf = new RangoFrec(Integer.parseInt(cadena[1]));
 
                 for (int i = 2; i < cadena.length; ++i) {
-                    aux.add(Integer.parseInt(cadena[i]));
+                    rf.aniadeFrecuencia(Integer.parseInt(cadena[i]));
                 }
 
-                RangoFrec rf = new RangoFrec(Integer.parseInt(cadena[1]), aux);
                 frecuencias.add(rf);
 
                 strLine = br.readLine();
