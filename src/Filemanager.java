@@ -21,11 +21,11 @@ public class Filemanager {
 
     }
 
-    public ArrayList<Transmisor> getTransmisores(){
+    public ArrayList<Transmisor> getTransmisores() {
         return transmisores;
     }
 
-    public ArrayList<RangoFrec> getFrecuencias(){
+    public ArrayList<RangoFrec> getFrecuencias() {
         return frecuencias;
     }
 
@@ -35,6 +35,7 @@ public class Filemanager {
 
     /**
      * Funcion que parsea el fichero de conexiones de los nodos y los almacena
+     *
      * @param rutaFichero ruta del archivo con los datos
      */
     private void leeTransmisores(String rutaFichero) {
@@ -43,7 +44,7 @@ public class Filemanager {
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
             String strLine = br.readLine();
 
-            while (strLine != null && strLine.length() != 1) {
+            while (strLine != null && strLine.length() > 2) {
 
                 String[] cadena;
 
@@ -65,6 +66,7 @@ public class Filemanager {
 
     /**
      * Funcion que parsea el fichero de frecuencias y las almacena
+     *
      * @param rutaFichero ruta de archivo con los datos
      */
     private void leeFrecuencias(String rutaFichero) {
@@ -74,7 +76,7 @@ public class Filemanager {
 
             String strLine = br.readLine();
 
-            while (strLine != null && strLine.length() != 1) {
+            while (strLine != null && strLine.length() > 2) {
 
                 String[] cadena;
                 cadena = strLine.split("\\s+");
@@ -98,28 +100,34 @@ public class Filemanager {
 
     /**
      * Funcion que parsea el archivo de restricciones y lo almacena
+     *
      * @param rutaFichero ruta del archivo con los datos
      */
     private void leeRestricciones(String rutaFichero) {
         Restriccion mirestriccion;
-        try{
+        try {
             FileInputStream fstream = new FileInputStream(rutaFichero);
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
             String strLine = br.readLine();
 
-            while (strLine != null && strLine.length() != 1) {
+            while (strLine != null && strLine.length() > 2) {
 
                 String[] cadena;
                 cadena = strLine.split("\\s+");
-                if (cadena[4].toString().equals( ">")) {
-                    mirestriccion = new Restriccion(Integer.parseInt(cadena[1]),Integer.parseInt(cadena[2]),Integer.parseInt(cadena[5]),Integer.parseInt(cadena[6]));
+                if (cadena[4].toString().equals(">")) {
+                    mirestriccion = new Restriccion(
+                            Integer.parseInt(cadena[1]),
+                            Integer.parseInt(cadena[2]),
+                            Integer.parseInt(cadena[5]),
+                            Integer.parseInt(cadena[6]));
+
                     restricciones.add(mirestriccion);
                 }
                 strLine = br.readLine();
             }
 
             br.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println("Error al leer el archivo de restricciones");
         }
     }
