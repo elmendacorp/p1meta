@@ -111,7 +111,7 @@ public class Filemanager {
 
                 String[] cadena;
                 cadena = strLine.split("\\s+");
-                if (cadena[3] == ">") {
+                if (cadena[4].toString().equals( ">")) {
                     mirestriccion = new Restriccion(Integer.parseInt(cadena[1]),Integer.parseInt(cadena[2]),Integer.parseInt(cadena[5]),Integer.parseInt(cadena[6]));
                     restricciones.add(mirestriccion);
                 }
