@@ -9,6 +9,11 @@ public class Filemanager {
 
     private List<Pair<Integer, Integer>> transmisores;
     private List<Pair<Integer, List<Integer>>> frecuencias;
+    private List<Restriccion> restricciones;
+
+
+
+
 
     public Filemanager(String path) {
         transmisores = new ArrayList<>();
@@ -25,6 +30,10 @@ public class Filemanager {
 
     public List<Pair<Integer, List<Integer>>> getFrecuencias(){
         return frecuencias;
+    }
+
+    public List<Restriccion> getRestricciones() {
+        return restricciones;
     }
 
     private void leeTransmisores(String rutaFichero) {
@@ -49,7 +58,7 @@ public class Filemanager {
 
             br.close();
         } catch (Exception e) {
-            System.out.println("Fallo al leer el fichero de transmisores: " + e);
+            System.err.println("Fallo al leer el fichero de transmisores: " + e);
         }
     }
 
@@ -79,11 +88,12 @@ public class Filemanager {
 
             br.close();
         } catch (Exception e) {
-            System.out.println("Fallo al leer el fichero de frecuencias: " + e);
+            System.err.println("Fallo al leer el fichero de frecuencias: " + e);
         }
     }
 
     private void leeRestricciones(String rutaFichero) {
+        Restriccion mirestriccion;
         try{
             FileInputStream fstream = new FileInputStream(rutaFichero);
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
@@ -93,15 +103,17 @@ public class Filemanager {
 
                 String[] cadena;
                 cadena = strLine.split("\\s+");
-
-                List<Integer> aux = new ArrayList<>();
-
-
+                if (cadena[3] == ">") {
+                    mirestriccion = new Restriccion(Integer.parseInt(cadena[1]),Integer.parseInt(cadena[2]),Integer.parseInt(cadena[5]),Integer.parseInt(cadena[6]));
+                    restricciones.add(mirestriccion);
+                }
                 strLine = br.readLine();
             }
 
             br.close();
-        }catch(Exception e){}
+        }catch(Exception e){
+            System.err.println("Error al leer el archivo de restrcciones");
+        }
     }
 
 }
