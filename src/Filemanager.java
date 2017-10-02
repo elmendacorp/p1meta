@@ -7,12 +7,9 @@ import java.util.List;
 
 public class Filemanager {
 
-    private List<Pair<Integer, Integer>> transmisores;
+    private List<Transmisor> transmisores;
     private List<Pair<Integer, List<Integer>>> frecuencias;
     private List<Restriccion> restricciones;
-
-
-
 
 
     public Filemanager(String path) {
@@ -27,7 +24,7 @@ public class Filemanager {
 
     }
 
-    public List<Pair<Integer, Integer>> getTransmisores(){
+    public List<Transmisor> getTransmisores(){
         return transmisores;
     }
 
@@ -53,8 +50,8 @@ public class Filemanager {
                 Integer transmisor = Integer.parseInt(cadena[1]);
                 Integer banda = Integer.parseInt(cadena[2]);
 
-                Pair<Integer, Integer> par = new Pair<>(transmisor, banda);
-                transmisores.add(par);
+                Transmisor t = new Transmisor(transmisor, banda);
+                transmisores.add(t);
 
                 strLine = br.readLine();
             }
