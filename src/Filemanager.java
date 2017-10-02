@@ -7,10 +7,9 @@ import java.util.List;
 
 public class Filemanager {
 
-    private List<Transmisor> transmisores;
-    private List<Pair<Integer, List<Integer>>> frecuencias;
-    private List<Restriccion> restricciones;
-
+    private ArrayList<Transmisor> transmisores;
+    private ArrayList<RangoFrec> frecuencias;
+    private ArrayList<Restriccion> restricciones;
 
     public Filemanager(String path) {
         transmisores = new ArrayList<>();
@@ -24,15 +23,15 @@ public class Filemanager {
 
     }
 
-    public List<Transmisor> getTransmisores(){
+    public ArrayList<Transmisor> getTransmisores(){
         return transmisores;
     }
 
-    public List<Pair<Integer, List<Integer>>> getFrecuencias(){
+    public ArrayList<RangoFrec> getFrecuencias(){
         return frecuencias;
     }
 
-    public List<Restriccion> getRestricciones() {
+    public ArrayList<Restriccion> getRestricciones() {
         return restricciones;
     }
 
@@ -82,14 +81,14 @@ public class Filemanager {
                 String[] cadena;
                 cadena = strLine.split("\\s+");
 
-                List<Integer> aux = new ArrayList<>();
+                ArrayList<Integer> aux = new ArrayList<>();
 
                 for (int i = 2; i < cadena.length; ++i) {
                     aux.add(Integer.parseInt(cadena[i]));
                 }
 
-                Pair<Integer, List<Integer>> frec = new Pair<>(Integer.parseInt(cadena[1]), aux);
-                frecuencias.add(frec);
+                RangoFrec rf = new RangoFrec(Integer.parseInt(cadena[1]), aux);
+                frecuencias.add(rf);
 
                 strLine = br.readLine();
             }
@@ -124,7 +123,7 @@ public class Filemanager {
 
             br.close();
         }catch(Exception e){
-            System.err.println("Error al leer el archivo de restrcciones");
+            System.err.println("Error al leer el archivo de restricciones");
         }
     }
 
