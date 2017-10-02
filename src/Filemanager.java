@@ -123,12 +123,20 @@ public class Filemanager {
 
                 String[] cadena;
                 cadena = strLine.split("\\s+");
-                if (cadena[4].toString().equals(">")) {
+                if (cadena[4].toString().equals(">") && cadena.length==7) {
                     mirestriccion = new Restriccion(
                             Integer.parseInt(cadena[1]),
                             Integer.parseInt(cadena[2]),
                             Integer.parseInt(cadena[5]),
                             Integer.parseInt(cadena[6]));
+
+                    restricciones.add(mirestriccion);
+                }else if(cadena[3].toString().equals(">") && cadena.length==6) {
+                    mirestriccion = new Restriccion(
+                            Integer.parseInt(cadena[0]),
+                            Integer.parseInt(cadena[1]),
+                            Integer.parseInt(cadena[4]),
+                            Integer.parseInt(cadena[5]));
 
                     restricciones.add(mirestriccion);
                 }
