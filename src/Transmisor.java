@@ -9,7 +9,6 @@ public class Transmisor {
         frecuencia = -1;
     }
 
-
     public int getId() {
         return id;
     }

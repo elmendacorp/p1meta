@@ -49,8 +49,17 @@ public class Filemanager {
                 String[] cadena;
 
                 cadena = strLine.split("\\s+");
-                Integer transmisor = Integer.parseInt(cadena[1]);
-                Integer banda = Integer.parseInt(cadena[2]);
+
+                Integer transmisor;
+                Integer banda;
+
+                if (cadena.length > 2) {
+                    transmisor = Integer.parseInt(cadena[1]);
+                    banda = Integer.parseInt(cadena[2]);
+                } else {
+                    transmisor = Integer.parseInt(cadena[0]);
+                    banda = Integer.parseInt(cadena[1]);
+                }
 
                 Transmisor t = new Transmisor(transmisor, banda);
                 transmisores.add(t);
