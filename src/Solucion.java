@@ -15,8 +15,8 @@ public class Solucion {
         for(Restriccion rs:restricciones.values()){
             int tx= frecuenciasAsignadas.get(rs.getId()).getFrecuencia();
             int rx = frecuenciasAsignadas.get(rs.getId_restriccion()).getFrecuencia();
-            int toletancia = Math.abs(tx-rx);
-            if(toletancia< rs.getTolerancia()){
+            int tolerancia = Math.abs(tx-rx);
+            if(tolerancia< rs.getTolerancia()){
                 puntuacion+=rs.getPenalizacion();
             }
         }
