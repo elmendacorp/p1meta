@@ -3,7 +3,9 @@ import java.util.Random;
 public class Greedy {
     private Solucion solucion;
     static Random aleatorio;
+    private long time;
     public Greedy(Filemanager conjuntoDatos, int semilla){
+        time= System.currentTimeMillis();
         solucion= new Solucion();
         FrecAsignada fr;
         aleatorio= new Random();
@@ -15,10 +17,11 @@ public class Greedy {
             fr= new FrecAsignada(tx.getId(),indice);
             solucion.anadeFrecuencia(fr);
         }
+        time=System.currentTimeMillis()-time;
     }
 
     public void getResultados() {
-        System.out.println("Solucion Greedy "+ solucion.getPuntuacion());
+        System.out.println("Solucion Greedy "+ solucion.getPuntuacion()+" Tiempo ejecucion "+time+" ms");
         for(FrecAsignada fr:solucion.getFrecuenciasAsignadas()){
             System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
