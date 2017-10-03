@@ -16,5 +16,6 @@ public class Solucion {
     }
     public void compruebaRestriccion(){
         //TODO: funcion que conprueba las restricciones de cada nodo y comprueba que el asociado no emite ne la misma banda y calcula la penalizacion
+
     }
 }
