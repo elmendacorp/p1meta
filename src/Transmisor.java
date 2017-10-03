@@ -4,12 +4,10 @@
 public class Transmisor {
     private int id;
     private int rango;
-    private int frecuencia;
 
     public Transmisor(int _id, int _rango){
         id = _id;
         rango = _rango;
-        frecuencia = -1;
     }
 
     public int getId() {
@@ -26,13 +24,5 @@ public class Transmisor {
 
     public void setRango(int rango) {
         this.rango = rango;
-    }
-
-    public int getFrecuencia() {
-        return frecuencia;
-    }
-
-    public void setFrecuencia(int frecuencia) {
-        this.frecuencia = frecuencia;
     }
 }
