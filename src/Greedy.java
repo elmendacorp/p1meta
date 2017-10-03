@@ -22,7 +22,7 @@ public class Greedy {
 
     public void getResultados() {
         System.out.println("Solucion Greedy "+ solucion.getPuntuacion()+" Tiempo ejecucion "+time+" ms");
-        for(FrecAsignada fr:solucion.getFrecuenciasAsignadas()){
+        for(FrecAsignada fr:solucion.getFrecuenciasAsignadas().values()){
             System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
     }

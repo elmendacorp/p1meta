@@ -2,12 +2,14 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Map;
+
 
 public class Filemanager {
 
     private ArrayList<Transmisor> transmisores;
     private ArrayList<RangoFrec> frecuencias;
-    private ArrayList<Restriccion> restricciones;
+    private Map<Integer,Restriccion> restricciones;
 
     public Filemanager(String path) {
         transmisores = new ArrayList<>();
@@ -16,7 +18,6 @@ public class Filemanager {
         frecuencias = new ArrayList<>();
         leeFrecuencias(path + "dom.txt");
 
-        restricciones = new ArrayList<>();
         leeRestricciones(path + "ctr.txt");
 
     }
@@ -29,7 +30,7 @@ public class Filemanager {
         return frecuencias;
     }
 
-    public ArrayList<Restriccion> getRestricciones() {
+    public Map<Integer, Restriccion> getRestricciones() {
         return restricciones;
     }
 
@@ -130,7 +131,7 @@ public class Filemanager {
                             Integer.parseInt(cadena[5]),
                             Integer.parseInt(cadena[6]));
 
-                    restricciones.add(mirestriccion);
+                    restricciones.put(mirestriccion.getId(),mirestriccion);
                 }else if(cadena[3].toString().equals(">") && cadena.length==6) {
                     mirestriccion = new Restriccion(
                             Integer.parseInt(cadena[0]),
@@ -138,7 +139,7 @@ public class Filemanager {
                             Integer.parseInt(cadena[4]),
                             Integer.parseInt(cadena[5]));
 
-                    restricciones.add(mirestriccion);
+                    restricciones.put(mirestriccion.getId(),mirestriccion);
                 }
                 strLine = br.readLine();
             }
@@ -156,10 +157,6 @@ public class Filemanager {
         System.out.println("Transmisor \t Frecuencias");
         for (Transmisor tr:transmisores) {
             System.out.println(tr.getId()+"\t->"+ frecuencias.get(tr.getRango()).getFrecuencias());
-        }
-        System.out.println("\n\n"+"Tx\tTr\tTolerancia\tPenalizacion");
-        for (Restriccion rs:restricciones){
-            System.out.println(rs.getId()+"\t"+rs.getId_restriccion()+"\t > "+rs.getTolerancia()+"\t"+rs.getPenalizacion());
         }
     }
 

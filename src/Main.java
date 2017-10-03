@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String [ ] args){
 
-        Filemanager filemanager = new Filemanager("./archivos_guion/instancias/graph05/");
+        Filemanager filemanager = new Filemanager("./archivos_guion/instancias/scen08/");
         Greedy miGreedy = new Greedy(filemanager,SEMILLA1);
         miGreedy.getSolucion().compruebaRestriccion(filemanager.getRestricciones());
         miGreedy.getResultados();
