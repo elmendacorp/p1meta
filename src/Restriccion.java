@@ -1,3 +1,6 @@
+/**
+ * Clase que almacena las restriccion de un transmisor sobre otro y la penalizacion sobre la misma
+ */
 public class Restriccion {
     private int id;
     private int id_restriccion;

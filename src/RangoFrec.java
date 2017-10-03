@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Clase que almacena un rango de frecuencias asociado a su identificador
+ */
 public class RangoFrec {
     private int id;
     private ArrayList<Integer> frecuencias;

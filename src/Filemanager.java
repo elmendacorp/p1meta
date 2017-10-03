@@ -149,4 +149,18 @@ public class Filemanager {
         }
     }
 
+    /**
+     * Funcion para comprobar que la lectura de archivo se ha realizado correctamente
+     */
+    public void imprimeDatos(){
+        System.out.println("Transmisor \t Frecuencias");
+        for (Transmisor tr:transmisores) {
+            System.out.println(tr.getId()+"\t->"+ frecuencias.get(tr.getRango()).getFrecuencias());
+        }
+        System.out.println("\n\n"+"Tx\tTr\tTolerancia\tPenalizacion");
+        for (Restriccion rs:restricciones){
+            System.out.println(rs.getId()+"\t"+rs.getId_restriccion()+"\t > "+rs.getTolerancia()+"\t"+rs.getPenalizacion());
+        }
+    }
+
 }

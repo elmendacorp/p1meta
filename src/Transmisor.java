@@ -1,3 +1,6 @@
+/**
+ * Clase que almacena un transmisor asi como el identificador del rango de frecuencias asociado
+ */
 public class Transmisor {
     private int id;
     private int rango;
