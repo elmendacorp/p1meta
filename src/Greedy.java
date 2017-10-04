@@ -10,9 +10,9 @@ public class Greedy {
         FrecAsignada fr;
         aleatorio= new Random();
         aleatorio.setSeed(semilla);
-        for(Transmisor tx:conjuntoDatos.getTransmisores()){
+        for(Transmisor tx:conjuntoDatos.getTransmisores().values()){
             int seed= Math.abs(aleatorio.nextInt());
-            int size = conjuntoDatos.getFrecuencias().get(tx.getRango()).getFrecuencias().size();
+            int size = conjuntoDatos.getFrecuencias().get(tx.getRango()).tamanio();
             int indice = conjuntoDatos.getFrecuencias().get(tx.getRango()).getFrecuencias().get(seed%size);
             fr= new FrecAsignada(tx.getId(),indice);
             solucion.anadeFrecuencia(fr);

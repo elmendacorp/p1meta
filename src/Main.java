@@ -19,6 +19,10 @@ public class Main {
         Greedy miGreedy = new Greedy(filemanager,SEMILLA1);
         miGreedy.getSolucion().compruebaRestriccion(filemanager.getRestricciones());
         miGreedy.getResultados();
+        BusquedaLocal miBusqueda= new BusquedaLocal(miGreedy.getSolucion(),SEMILLA1);
+        miBusqueda.generaSoluciones(filemanager,10000);
+        miBusqueda.getResultados();
+
 
     }
 }

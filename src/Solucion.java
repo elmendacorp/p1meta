@@ -16,7 +16,9 @@ public class Solucion {
     public void anadeFrecuencia(FrecAsignada var1){
         frecuenciasAsignadas.put(var1.getId(),var1);
     }
+
     public void compruebaRestriccion(Multimap<Integer,Restriccion> restricciones){
+        puntuacion=0;
         for(Restriccion rs:restricciones.values()){
             int tx= frecuenciasAsignadas.get(rs.getId()).getFrecuencia();
             int rx = frecuenciasAsignadas.get(rs.getId_restriccion()).getFrecuencia();
@@ -29,10 +31,6 @@ public class Solucion {
 
     public int getPuntuacion() {
         return puntuacion;
-    }
-
-    public void setPuntuacion(int puntuacion) {
-        this.puntuacion = puntuacion;
     }
 
     public Map<Integer,FrecAsignada> getFrecuenciasAsignadas() {

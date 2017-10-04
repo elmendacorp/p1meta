@@ -9,15 +9,15 @@ import java.util.*;
 
 public class Filemanager {
 
-    private ArrayList<Transmisor> transmisores;
-    private ArrayList<RangoFrec> frecuencias;
+    private Map<Integer,Transmisor> transmisores;
+    private Map<Integer,RangoFrec> frecuencias;
     private HashMultimap<Integer,Restriccion> restricciones;
 
     public Filemanager(String path) {
-        transmisores = new ArrayList<>();
+        transmisores = new HashMap<>();
         leeTransmisores(path + "var.txt");
 
-        frecuencias = new ArrayList<>();
+        frecuencias = new HashMap<>();
         leeFrecuencias(path + "dom.txt");
 
         restricciones= HashMultimap.create();
@@ -25,11 +25,11 @@ public class Filemanager {
 
     }
 
-    public ArrayList<Transmisor> getTransmisores() {
+    public Map<Integer,Transmisor> getTransmisores() {
         return transmisores;
     }
 
-    public ArrayList<RangoFrec> getFrecuencias() {
+    public Map<Integer,RangoFrec> getFrecuencias() {
         return frecuencias;
     }
 
@@ -66,7 +66,7 @@ public class Filemanager {
                 }
 
                 Transmisor t = new Transmisor(transmisor, banda);
-                transmisores.add(t);
+                transmisores.put(t.getId(),t);
 
                 strLine = br.readLine();
             }
@@ -100,7 +100,7 @@ public class Filemanager {
                     rf.aniadeFrecuencia(Integer.parseInt(cadena[i]));
                 }
 
-                frecuencias.add(rf);
+                frecuencias.put(rf.getId(),rf);
 
                 strLine = br.readLine();
             }
@@ -158,8 +158,8 @@ public class Filemanager {
      */
     public void imprimeDatos(){
         System.out.println("Transmisor \t Frecuencias");
-        for (Transmisor tr:transmisores) {
-            System.out.println(tr.getId()+"\t->"+ frecuencias.get(tr.getRango()).getFrecuencias());
+        for (Transmisor tr:transmisores.values()) {
+            System.out.println(tr.getId()+"\t->"+ frecuencias.get(tr.getRango()));
         }
     }
 

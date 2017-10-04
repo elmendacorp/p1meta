@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 /**
  * Clase que almacena un rango de frecuencias asociado a su identificador
  */
@@ -9,8 +8,11 @@ public class RangoFrec {
 
     public RangoFrec(int _id) {
         id = _id;
-        frecuencias = new ArrayList<>();
+        frecuencias = new ArrayList<>() {
+        };
     }
+
+    public int tamanio(){return frecuencias.size();}
 
     public void aniadeFrecuencia(int valor) {
         frecuencias.add(valor);
