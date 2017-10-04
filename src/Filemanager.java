@@ -1,16 +1,17 @@
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 public class Filemanager {
 
     private ArrayList<Transmisor> transmisores;
     private ArrayList<RangoFrec> frecuencias;
-    private Map<Integer,Restriccion> restricciones;
+    private HashMultimap<Integer,Restriccion> restricciones;
 
     public Filemanager(String path) {
         transmisores = new ArrayList<>();
@@ -19,7 +20,7 @@ public class Filemanager {
         frecuencias = new ArrayList<>();
         leeFrecuencias(path + "dom.txt");
 
-        restricciones= new HashMap<>();
+        restricciones= HashMultimap.create();
         leeRestricciones(path + "ctr.txt");
 
     }
@@ -32,7 +33,7 @@ public class Filemanager {
         return frecuencias;
     }
 
-    public Map<Integer, Restriccion> getRestricciones() {
+    public Multimap<Integer,Restriccion> getRestricciones() {
         return restricciones;
     }
 

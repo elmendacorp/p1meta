@@ -1,3 +1,5 @@
+import com.google.common.collect.Multimap;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +16,7 @@ public class Solucion {
     public void anadeFrecuencia(FrecAsignada var1){
         frecuenciasAsignadas.put(var1.getId(),var1);
     }
-    public void compruebaRestriccion(Map<Integer,Restriccion> restricciones){
+    public void compruebaRestriccion(Multimap<Integer,Restriccion> restricciones){
         for(Restriccion rs:restricciones.values()){
             int tx= frecuenciasAsignadas.get(rs.getId()).getFrecuencia();
             int rx = frecuenciasAsignadas.get(rs.getId_restriccion()).getFrecuencia();
@@ -35,6 +37,10 @@ public class Solucion {
 
     public Map<Integer,FrecAsignada> getFrecuenciasAsignadas() {
         return frecuenciasAsignadas;
+    }
+
+    public int tamanio(){
+        return frecuenciasAsignadas.size();
     }
 
 }
