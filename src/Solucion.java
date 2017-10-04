@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -7,6 +7,9 @@ import java.util.Map;
 public class Solucion {
     private int puntuacion=0;
     private Map<Integer,FrecAsignada> frecuenciasAsignadas;
+    public Solucion(){
+        frecuenciasAsignadas= new HashMap<>();
+    }
 
     public void anadeFrecuencia(FrecAsignada var1){
         frecuenciasAsignadas.put(var1.getId(),var1);
