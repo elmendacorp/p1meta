@@ -23,6 +23,8 @@ public class Filemanager {
         restricciones= HashMultimap.create();
         leeRestricciones(path + "ctr.txt");
 
+        System.out.println("Fin carga: "+path+" -> Transmisores: "+transmisores.size()+" Frecuencias: "+frecuencias.size()+" Restrcciones: "+restricciones.size() );
+
     }
 
     public Map<Integer,Transmisor> getTransmisores() {

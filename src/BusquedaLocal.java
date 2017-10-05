@@ -16,15 +16,22 @@ public class BusquedaLocal {
     }
     public void generaSoluciones(Filemanager datos, int iteraciones){
         time= System.currentTimeMillis();
-        int i=0;
-        Solucion solucionInicial=solucionActual;
-        while(i<iteraciones){
+        int contador=0;
+        while(contador<iteraciones){
+            Solucion solucionModificada=solucionActual;
+            int intentos=0;
             int frecuenciasNodo= datos.getTransmisores().get(nodoInicio).getRango();
-            for(int j:datos.getFrecuencias().get(frecuenciasNodo).getFrecuencias()){
-                    solucionInicial.getFrecuenciasAsignadas().get(nodoInicio).setFrecuencia(j);
-                    ++i;
-                }
-
+            int numFrecuencias= datos.getFrecuencias().get(frecuenciasNodo).tamanio();
+            while(intentos<datos.getFrecuencias().get(frecuenciasNodo).tamanio()&&contador<iteraciones&&solucionModificada.getPuntuacion()>=solucionActual.getPuntuacion()){
+                solucionModificada.getFrecuenciasAsignadas().get(nodoInicio).setFrecuencia(datos.getFrecuencias().get(frecuenciasNodo).getFrecuencias().get(Math.abs(rd.nextInt()%numFrecuencias)));
+                solucionActual.recalcular(solucionModificada,datos.getRestricciones(),nodoInicio);
+                ++intentos;
+                ++contador;
+                System.out.println("Iteracion "+contador+" puntuacion "+solucionModificada.getPuntuacion());
+            }
+            if(solucionModificada.getPuntuacion()<solucionActual.getPuntuacion()){
+                solucionActual=solucionModificada;
+            }
 
             if(direccion==1){
                 ++nodoInicio;
@@ -33,9 +40,7 @@ public class BusquedaLocal {
                 --nodoInicio;
                 if (nodoInicio==-1){nodoInicio=solucionActual.tamanio()-1;}
             }
-            if(solucionInicial.getPuntuacion()<solucionActual.getPuntuacion()){
-                solucionActual=solucionInicial;
-            }
+
         }
         time=System.currentTimeMillis()-time;
     }
