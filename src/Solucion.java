@@ -36,8 +36,8 @@ public class Solucion {
         fr2=modificado.frecuenciasAsignadas.get(posicion).getFrecuencia();
         for(Restriccion rs:restricciones.get(posicion)){
             int fr3=frecuenciasAsignadas.get(rs.getId_restriccion()).getFrecuencia();
-            if(Math.abs(fr2-fr3)>rs.getTolerancia()&&Math.abs(fr1-fr3)<=rs.getTolerancia()){
-                modificado.setPuntuacion(-1*rs.getPenalizacion());
+            if(Math.abs(fr1-fr3)>rs.getTolerancia()&&Math.abs(fr2-fr3)<=rs.getTolerancia()){
+                modificado.setPuntuacion((-1*rs.getPenalizacion()));
             }
         }
 

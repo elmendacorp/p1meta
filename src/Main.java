@@ -27,7 +27,9 @@ public class Main {
         Filemanager filemanager10 = new Filemanager("./archivos_guion/instancias/scen09/");
         Filemanager filemanager11 = new Filemanager("./archivos_guion/instancias/scen10/");
 
-        Greedy miGreedy = new Greedy(filemanager4,SEMILLA1);
+        //filemanager2.imprimeDatos();
+
+        Greedy miGreedy = new Greedy(filemanager4,SEMILLA5);
         miGreedy.getSolucion().compruebaRestriccion(filemanager4.getRestricciones());
         miGreedy.getResultados();
         BusquedaLocal miBusqueda= new BusquedaLocal(miGreedy.getSolucion(),SEMILLA1);
