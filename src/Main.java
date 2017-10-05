@@ -15,13 +15,13 @@ public class Main {
 
     public static void main(String [ ] args){
 
-        Filemanager filemanager = new Filemanager("./archivos_guion/instancias/graph05/");
+        Filemanager filemanager = new Filemanager("./archivos_guion/instancias/graph06/");
         Greedy miGreedy = new Greedy(filemanager,SEMILLA1);
         miGreedy.getSolucion().compruebaRestriccion(filemanager.getRestricciones());
-        miGreedy.getResultados();
+        //miGreedy.getResultados();
         BusquedaLocal miBusqueda= new BusquedaLocal(miGreedy.getSolucion(),SEMILLA1);
         miBusqueda.generaSoluciones(filemanager,10000);
-        miBusqueda.getResultados();
+        //miBusqueda.getResultados();
 
 
     }
