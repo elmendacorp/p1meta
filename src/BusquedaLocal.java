@@ -27,7 +27,7 @@ public class BusquedaLocal {
                 solucionActual.recalcular(solucionModificada,datos.getRestricciones(),nodoInicio);
                 ++intentos;
                 ++contador;
-                System.out.println("Iteracion "+contador+" puntuacion "+solucionModificada.getPuntuacion());
+                System.out.println("Iteracion "+contador+" puntuacion "+solucionModificada.getPuntuacion()+"Intentos: "+intentos);
             }
             if(solucionModificada.getPuntuacion()<solucionActual.getPuntuacion()){
                 solucionActual=solucionModificada;
