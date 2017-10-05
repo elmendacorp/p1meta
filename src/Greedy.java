@@ -21,7 +21,7 @@ public class Greedy {
 
     public void getResultados() {
         System.out.println("Solucion Greedy "+ solucion.getPuntuacion()+" Tiempo ejecucion "+time+" ms");
-        for(FrecAsignada fr:solucion.getFrecuenciasAsignadas().values()){
+        for(FrecAsignada fr:solucion.getFrecuenciasAsignadas()){
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
     }
