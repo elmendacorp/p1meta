@@ -2,9 +2,9 @@ public class FrecAsignada {
     private int id;
     private int frecuencia;
 
-    public FrecAsignada(int var1,int var2){
-        id=var1;
-        frecuencia=var2;
+    public FrecAsignada(int var1, int var2) {
+        id = var1;
+        frecuencia = var2;
     }
 
     public int getId() {

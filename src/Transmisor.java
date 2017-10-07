@@ -5,7 +5,7 @@ public class Transmisor {
     private int id;
     private int rango;
 
-    public Transmisor(int _id, int _rango){
+    public Transmisor(int _id, int _rango) {
         id = _id;
         rango = _rango;
     }
