@@ -10,9 +10,9 @@ import java.util.*;
 
 public class Filemanager {
 
-    private HashMap<Integer,Transmisor> transmisores;
-    private Map<Integer,RangoFrec> frecuencias;
-    private Multimap<Integer,Restriccion> restricciones;
+    private HashMap<Integer, Transmisor> transmisores;
+    private Map<Integer, RangoFrec> frecuencias;
+    private Multimap<Integer, Restriccion> restricciones;
 
     public Filemanager(String path) {
         transmisores = new HashMap<>();
@@ -21,22 +21,22 @@ public class Filemanager {
         frecuencias = new HashMap<>();
         leeFrecuencias(path + "dom.txt");
 
-        restricciones= ArrayListMultimap.create();
+        restricciones = ArrayListMultimap.create();
         leeRestricciones(path + "ctr.txt");
 
-        System.out.println("Fin carga: "+path+" -> Transmisores: "+transmisores.size()+" Frecuencias: "+frecuencias.size()+" Restrcciones: "+restricciones.size() );
+        System.out.println("Fin carga: " + path + " -> Transmisores: " + transmisores.size() + " Frecuencias: " + frecuencias.size() + " Restrcciones: " + restricciones.size());
 
     }
 
-    public HashMap<Integer,Transmisor> getTransmisores() {
+    public HashMap<Integer, Transmisor> getTransmisores() {
         return transmisores;
     }
 
-    public Map<Integer,RangoFrec> getFrecuencias() {
+    public Map<Integer, RangoFrec> getFrecuencias() {
         return frecuencias;
     }
 
-    public Multimap<Integer,Restriccion> getRestricciones() {
+    public Multimap<Integer, Restriccion> getRestricciones() {
         return restricciones;
     }
 
@@ -52,7 +52,7 @@ public class Filemanager {
             String strLine = br.readLine();
 
             while (strLine != null && strLine.length() > 2) {
-                strLine=strLine.trim();
+                strLine = strLine.trim();
                 String[] cadena;
                 cadena = strLine.split("\\s+");
 
@@ -62,9 +62,8 @@ public class Filemanager {
                 transmisor = Integer.parseInt(cadena[0]);
                 banda = Integer.parseInt(cadena[1]);
 
-
                 Transmisor t = new Transmisor(transmisor, banda);
-                transmisores.put(t.getId(),t);
+                transmisores.put(t.getId(), t);
 
                 strLine = br.readLine();
             }
@@ -88,19 +87,19 @@ public class Filemanager {
             String strLine = br.readLine();
 
             while (strLine != null && strLine.length() > 2) {
-                strLine=strLine.trim();
+                strLine = strLine.trim();
                 String[] cadena;
                 cadena = strLine.split("\\s+");
 
                 RangoFrec rf = new RangoFrec(Integer.parseInt(cadena[0]));
 
                 for (int i = 1; i < cadena.length; ++i) {
-                    if(Integer.parseInt(cadena[i].trim())!=0) {
+                    if (Integer.parseInt(cadena[i].trim()) != 0) {
                         rf.aniadeFrecuencia(Integer.parseInt(cadena[i]));
                     }
                 }
 
-                frecuencias.put(rf.getId(),rf);
+                frecuencias.put(rf.getId(), rf);
 
                 strLine = br.readLine();
             }
@@ -124,10 +123,10 @@ public class Filemanager {
             String strLine = br.readLine();
 
             while (strLine != null && strLine.length() > 2) {
-                strLine=strLine.trim();
+                strLine = strLine.trim();
                 String[] cadena;
                 cadena = strLine.split("\\s+");
-                if(cadena[3].equals(">")) {
+                if (cadena[3].equals(">")) {
                     mirestriccion = new Restriccion(
                             Integer.parseInt(cadena[0]),
                             Integer.parseInt(cadena[1]),
@@ -147,21 +146,21 @@ public class Filemanager {
     /**
      * Funcion para comprobar que la lectura de archivo se ha realizado correctamente
      */
-    public void imprimeDatos(){
+    public void imprimeDatos() {
         System.out.println("Transmisor \t Frecuencias");
-        for (Transmisor tr:transmisores.values()) {
-            System.out.println(tr.getId()+"\t->"+ tr.getRango());
+        for (Transmisor tr : transmisores.values()) {
+            System.out.println(tr.getId() + "\t->" + tr.getRango());
         }
         System.out.println("------------------------------------------------------");
-        for(RangoFrec rf:frecuencias.values()){
-            System.out.println("ID Frecuencia: "+rf.getId());
-            for(Integer fd2:rf.getFrecuencias()){
-                System.out.println("<"+fd2+">");
+        for (RangoFrec rf : frecuencias.values()) {
+            System.out.println("ID Frecuencia: " + rf.getId());
+            for (Integer fd2 : rf.getFrecuencias()) {
+                System.out.println("<" + fd2 + ">");
             }
         }
         System.out.println("------------------------------------------------------");
-        for(Restriccion res:restricciones.values()){
-            System.out.println("ID:"+res.getId()+" IDRX:"+res.getId_restriccion()+" Restriccion:"+res.getTolerancia()+" Penalizacion:"+res.getPenalizacion());
+        for (Restriccion res : restricciones.values()) {
+            System.out.println("ID:" + res.getId() + " IDRX:" + res.getId_restriccion() + " Restriccion:" + res.getTolerancia() + " Penalizacion:" + res.getPenalizacion());
         }
     }
 
