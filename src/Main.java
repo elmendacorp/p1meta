@@ -29,13 +29,14 @@ public class Main {
 
         //filemanager6.imprimeDatos();
 
-        Filemanager elegido = filemanager4;
+        Filemanager fileFinal = filemanager4;
+        int semillaFinal = SEMILLA1;
 
-        Greedy miGreedy = new Greedy(elegido, SEMILLA1);
-        miGreedy.getSolucion().compruebaRestriccion(elegido.getRestricciones());
+        Greedy miGreedy = new Greedy(fileFinal, semillaFinal);
+        miGreedy.getSolucion().compruebaRestriccion(fileFinal.getRestricciones());
         miGreedy.getResultados();
-        BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), SEMILLA1);
-        miBusqueda.generaSoluciones(elegido, 10000);
+        BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
+        miBusqueda.generaSoluciones(fileFinal, 10000);
         miBusqueda.getResultados();
 
     }
