@@ -3,6 +3,7 @@ public class FrecAsignada {
     private int frecuencia;
 
     public FrecAsignada(int var1, int var2) {
+        //TODO: borrar id puesto que donde se usa esta clase, el integer del hashmap es el mismo
         id = var1;
         frecuencia = var2;
     }

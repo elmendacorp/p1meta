@@ -29,7 +29,7 @@ public class Main {
 
         //filemanager6.imprimeDatos();
 
-        Filemanager fileFinal = filemanager7;
+        Filemanager fileFinal = filemanager4;
         int semillaFinal = SEMILLA1;
 
         Greedy miGreedy = new Greedy(fileFinal, semillaFinal);
