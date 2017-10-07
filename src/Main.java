@@ -13,7 +13,7 @@ public class Main {
     public static final int SEMILLA4 = 45678123;
     public static final int SEMILLA5 = 56781234;
 
-    public static void main(String [ ] args){
+    public static void main(String[] args) {
 
         Filemanager filemanager1 = new Filemanager("./archivos_guion/instancias/graph05/");
         Filemanager filemanager2 = new Filemanager("./archivos_guion/instancias/graph06/");
@@ -29,11 +29,13 @@ public class Main {
 
         //filemanager6.imprimeDatos();
 
-        Greedy miGreedy = new Greedy(filemanager4,SEMILLA1);
-        miGreedy.getSolucion().compruebaRestriccion(filemanager4.getRestricciones());
+        Filemanager elegido = filemanager4;
+
+        Greedy miGreedy = new Greedy(elegido, SEMILLA1);
+        miGreedy.getSolucion().compruebaRestriccion(elegido.getRestricciones());
         miGreedy.getResultados();
-        BusquedaLocal miBusqueda= new BusquedaLocal(miGreedy.getSolucion(),SEMILLA1);
-        miBusqueda.generaSoluciones(filemanager4,10000);
+        BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), SEMILLA1);
+        miBusqueda.generaSoluciones(elegido, 10000);
         miBusqueda.getResultados();
 
     }
