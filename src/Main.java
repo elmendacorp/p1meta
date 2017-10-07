@@ -27,15 +27,14 @@ public class Main {
         Filemanager filemanager10 = new Filemanager("./archivos_guion/instancias/scen09/");
         Filemanager filemanager11 = new Filemanager("./archivos_guion/instancias/scen10/");
 
-        //filemanager2.imprimeDatos();
+        //filemanager6.imprimeDatos();
 
-        Greedy miGreedy = new Greedy(filemanager1,SEMILLA1);
-        miGreedy.getSolucion().compruebaRestriccion(filemanager1.getRestricciones());
+        Greedy miGreedy = new Greedy(filemanager4,SEMILLA1);
+        miGreedy.getSolucion().compruebaRestriccion(filemanager4.getRestricciones());
         miGreedy.getResultados();
         BusquedaLocal miBusqueda= new BusquedaLocal(miGreedy.getSolucion(),SEMILLA1);
-        miBusqueda.generaSoluciones(filemanager1,10000);
+        miBusqueda.generaSoluciones(filemanager4,10000);
         miBusqueda.getResultados();
-
 
     }
 }

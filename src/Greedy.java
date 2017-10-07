@@ -10,7 +10,7 @@ public class Greedy {
         FrecAsignada fr;
         aleatorio= new Random();
         aleatorio.setSeed(semilla);
-        for(Transmisor tx:conjuntoDatos.getTransmisores()){
+        for(Transmisor tx:conjuntoDatos.getTransmisores().values()){
             int size = conjuntoDatos.getFrecuencias().get(tx.getRango()).tamanio();
             int frecuenciaAsignada = conjuntoDatos.getFrecuencias().get(tx.getRango()).getFrecuencias().get(Math.abs(aleatorio.nextInt()%size));
             fr= new FrecAsignada(tx.getId(),frecuenciaAsignada);
@@ -21,7 +21,7 @@ public class Greedy {
 
     public void getResultados() {
         System.out.println("Solucion Greedy "+ solucion.getPuntuacion()+" Tiempo ejecucion "+time+" ms");
-        for(FrecAsignada fr:solucion.getFrecuenciasAsignadas()){
+        for(FrecAsignada fr:solucion.getFrecuenciasAsignadas().values()){
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
     }

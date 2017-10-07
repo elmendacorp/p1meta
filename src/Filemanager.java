@@ -1,3 +1,4 @@
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
@@ -9,25 +10,25 @@ import java.util.*;
 
 public class Filemanager {
 
-    private ArrayList<Transmisor> transmisores;
+    private HashMap<Integer,Transmisor> transmisores;
     private Map<Integer,RangoFrec> frecuencias;
-    private HashMultimap<Integer,Restriccion> restricciones;
+    private Multimap<Integer,Restriccion> restricciones;
 
     public Filemanager(String path) {
-        transmisores = new ArrayList<>();
+        transmisores = new HashMap<>();
         leeTransmisores(path + "var.txt");
 
         frecuencias = new HashMap<>();
         leeFrecuencias(path + "dom.txt");
 
-        restricciones= HashMultimap.create();
+        restricciones= ArrayListMultimap.create();
         leeRestricciones(path + "ctr.txt");
 
         System.out.println("Fin carga: "+path+" -> Transmisores: "+transmisores.size()+" Frecuencias: "+frecuencias.size()+" Restrcciones: "+restricciones.size() );
 
     }
 
-    public ArrayList<Transmisor> getTransmisores() {
+    public HashMap<Integer,Transmisor> getTransmisores() {
         return transmisores;
     }
 
@@ -63,7 +64,7 @@ public class Filemanager {
 
 
                 Transmisor t = new Transmisor(transmisor, banda);
-                transmisores.add(t);
+                transmisores.put(t.getId(),t);
 
                 strLine = br.readLine();
             }
@@ -148,7 +149,7 @@ public class Filemanager {
      */
     public void imprimeDatos(){
         System.out.println("Transmisor \t Frecuencias");
-        for (Transmisor tr:transmisores) {
+        for (Transmisor tr:transmisores.values()) {
             System.out.println(tr.getId()+"\t->"+ tr.getRango());
         }
         System.out.println("------------------------------------------------------");

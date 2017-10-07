@@ -1,6 +1,7 @@
 import com.google.common.collect.Multimap;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -8,20 +9,20 @@ import java.util.ArrayList;
  */
 public class Solucion implements Cloneable {
     private int puntuacion=0;
-    private ArrayList<FrecAsignada> frecuenciasAsignadas;
+    private HashMap<Integer,FrecAsignada> frecuenciasAsignadas;
     public Solucion(){
-        frecuenciasAsignadas= new ArrayList<>();
+        frecuenciasAsignadas= new HashMap<>();
     }
 
     public void anadeFrecuencia(FrecAsignada var1){
-        frecuenciasAsignadas.add(var1);
+        frecuenciasAsignadas.put(var1.getId(),var1);
     }
 
     public void compruebaRestriccion(Multimap<Integer,Restriccion> restricciones){
         puntuacion=0;
         for(Restriccion rs:restricciones.values()){
-            int tx= frecuenciasAsignadas.get(rs.getId()-1).getFrecuencia();
-            int rx = frecuenciasAsignadas.get(rs.getId_restriccion()-1).getFrecuencia();
+            int tx= frecuenciasAsignadas.get(rs.getId()).getFrecuencia();
+            int rx = frecuenciasAsignadas.get(rs.getId_restriccion()).getFrecuencia();
             int tolerancia = Math.abs(tx-rx);
             if(tolerancia< rs.getTolerancia()){
                 puntuacion+=rs.getPenalizacion();
@@ -31,15 +32,12 @@ public class Solucion implements Cloneable {
     //esta funcion es para evitar el recalcular todo el vector de soluciones para alterar la puntuacion
 
     public void recalcular(int frecuenciaOriginal, Filemanager datos, int posicion){
-        int fr1,fr2;
-        for(Restriccion rs:datos.getRestricciones().get(posicion+1)){
-            fr1=Math.abs(frecuenciaOriginal-frecuenciasAsignadas.get(rs.getId_restriccion()-1).getFrecuencia());
-            fr2=Math.abs(frecuenciasAsignadas.get(rs.getId()-1).getFrecuencia()-frecuenciasAsignadas.get(rs.getId_restriccion()-1).getFrecuencia());
-            System.out.println( frecuenciaOriginal+" "+fr1+" "+fr2);
-            if(fr1<rs.getTolerancia()&&fr2>rs.getTolerancia()){
-                setPuntuacion(puntuacion-rs.getPenalizacion());
-            }else if(fr1>rs.getTolerancia()&&fr2<rs.getTolerancia()){
-                setPuntuacion(puntuacion+rs.getPenalizacion());
+        for(Restriccion rs:datos.getRestricciones().get(posicion)){
+            int fr1=Math.abs(frecuenciaOriginal-frecuenciasAsignadas.get(rs.getId_restriccion()).getFrecuencia());
+            int fr2=Math.abs(frecuenciasAsignadas.get(rs.getId()).getFrecuencia()-frecuenciasAsignadas.get(rs.getId_restriccion()).getFrecuencia());
+            System.out.println( frecuenciaOriginal+" "+fr1+" "+fr2+ " tolerancia"+rs.getTolerancia());
+            if((fr1<rs.getTolerancia())&&(fr2>rs.getTolerancia())&&fr2>fr1) {
+                setPuntuacion(puntuacion - rs.getPenalizacion());
             }
         }
 
@@ -47,7 +45,7 @@ public class Solucion implements Cloneable {
 
     public Solucion(Solucion var1){
         puntuacion=var1.puntuacion;
-        frecuenciasAsignadas= new ArrayList<>(var1.frecuenciasAsignadas);
+        frecuenciasAsignadas= new HashMap<>(var1.frecuenciasAsignadas);
     }
 
     private void setPuntuacion(int puntos){puntuacion=puntos;}
@@ -56,7 +54,7 @@ public class Solucion implements Cloneable {
         return puntuacion;
     }
 
-    public ArrayList<FrecAsignada> getFrecuenciasAsignadas() {
+    public HashMap<Integer,FrecAsignada> getFrecuenciasAsignadas() {
         return frecuenciasAsignadas;
     }
 

@@ -27,8 +27,8 @@ public class BusquedaLocal {
                 while (intentos < numFrecuencias && contador < iteraciones && solucionModificada.getPuntuacion()>=solucionActual.getPuntuacion()) {
                     int nuevaFre=datos.getFrecuencias().get(frecuenciasNodo).getFrecuencias().get(Math.abs(rd.nextInt() % numFrecuencias));
                     solucionModificada.getFrecuenciasAsignadas().get(datos.getTransmisores().get(nodoInicio).getId()).setFrecuencia(nuevaFre);
-                    //solucionModificada.compruebaRestriccion(datos.getRestricciones());
-                    solucionModificada.recalcular(solucionActual.getFrecuenciasAsignadas().get(nodoInicio).getFrecuencia(),datos,nodoInicio);
+                    solucionModificada.compruebaRestriccion(datos.getRestricciones());
+                    //solucionModificada.recalcular(solucionActual.getFrecuenciasAsignadas().get(nodoInicio).getFrecuencia(),datos,nodoInicio);
                     ++intentos;
                     ++contador;
                     if (solucionModificada.getPuntuacion()<solucionActual.getPuntuacion()) {
@@ -47,7 +47,7 @@ public class BusquedaLocal {
                     }
                 } else {
                     if (nodoInicio == 0) {
-                        nodoInicio = solucionActual.tamanio()-2;
+                        nodoInicio = solucionActual.tamanio()-1;
                     } else {
                         nodoInicio--;
                     }
@@ -66,7 +66,7 @@ public class BusquedaLocal {
     }
     public void getResultados() {
         System.out.println("Solucion Busqueda Local "+ solucionActual.getPuntuacion()+" Tiempo ejecucion "+time+" ms");
-        for(FrecAsignada fr:solucionActual.getFrecuenciasAsignadas()){
+        for(FrecAsignada fr:solucionActual.getFrecuenciasAsignadas().values()){
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
     }
