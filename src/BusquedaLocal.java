@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class BusquedaLocal {
-    private long time;
+    private float time;
     private Solucion solucionActual;
     private LinkedList<FrecAsignada> vectorIteracion;
     private int nodoInicio;
@@ -21,7 +21,7 @@ public class BusquedaLocal {
     }
 
     public void generaSoluciones(Filemanager datos, int iteraciones) {
-        time = System.currentTimeMillis();
+        time = System.nanoTime();
         rellenaLista();
         int contador=0;
         Iterator<FrecAsignada> it;
@@ -70,7 +70,7 @@ public class BusquedaLocal {
                 }
             }
         }
-        time = System.currentTimeMillis() - time;
+        time = System.nanoTime() - time;
     }
 
     private void rellenaLista(){
@@ -91,7 +91,7 @@ public class BusquedaLocal {
     }
 
     public void getResultados() {
-        System.out.println("Solucion Busqueda Local " + solucionActual.getPuntuacion() + " Tiempo ejecucion " + time + " ms");
+        System.out.println("Solucion Busqueda Local " + solucionActual.getPuntuacion() + " Tiempo ejecucion " + time/1000000 + " ms");
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }

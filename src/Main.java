@@ -7,11 +7,11 @@
 
 public class Main {
 
-    public static final int SEMILLA1 = 12345678;
+    public static final int SEMILLA1 = 77361422;
     public static final int SEMILLA2 = 23456781;
-    public static final int SEMILLA3 = 34567812;
+    public static final int SEMILLA3 = 36142277;
     public static final int SEMILLA4 = 45678123;
-    public static final int SEMILLA5 = 56781234;
+    public static final int SEMILLA5 = 14227736;
 
     public static void main(String[] args) {
 
@@ -29,7 +29,7 @@ public class Main {
 
         //filemanager6.imprimeDatos();
 
-        Filemanager fileFinal = filemanager9;
+        Filemanager fileFinal = filemanager1;
         int semillaFinal = SEMILLA1;
 
         Greedy miGreedy = new Greedy(fileFinal, semillaFinal);
