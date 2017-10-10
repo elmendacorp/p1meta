@@ -1,11 +1,11 @@
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Filemanager {
@@ -92,8 +92,8 @@ public class Filemanager {
                 cadena = strLine.split("\\s+");
 
                 RangoFrec rf = new RangoFrec(Integer.parseInt(cadena[0]));
-
-                for (int i = 1; i < cadena.length; ++i) {
+                //el segundo valor es el numero de frecuencias
+                for (int i = 2; i < cadena.length; ++i) {
                     if (Integer.parseInt(cadena[i].trim()) != 0) {
                         rf.aniadeFrecuencia(Integer.parseInt(cadena[i]));
                     }
