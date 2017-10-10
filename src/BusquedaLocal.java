@@ -11,8 +11,8 @@ public class BusquedaLocal {
     private Random rd;
 
     public BusquedaLocal(Solucion solucion, int semilla) {
-        solucionActual= solucion;
-        vectorIteracion= new LinkedList<>();
+        solucionActual = solucion;
+        vectorIteracion = new LinkedList<>();
         actualizaVector();
         rd = new Random();
         rd.setSeed(semilla);
@@ -23,59 +23,59 @@ public class BusquedaLocal {
     public void generaSoluciones(Filemanager datos, int iteraciones) {
         time = System.nanoTime();
         rellenaLista();
-        int contador=0;
+        int contador = 0;
         Iterator<FrecAsignada> it;
-        if(direccion==0){
-            it= vectorIteracion.descendingIterator();
-            for(int i= vectorIteracion.size();i>nodoInicio;--i){
-                if(it.hasNext()){
+        if (direccion == 0) {
+            it = vectorIteracion.descendingIterator();
+            for (int i = vectorIteracion.size(); i > nodoInicio; --i) {
+                if (it.hasNext()) {
                     it.next();
                 }
             }
-        }else{
-            it= vectorIteracion.iterator();
-            for(int i=0;i<nodoInicio;++i){
-                if(it.hasNext()){
+        } else {
+            it = vectorIteracion.iterator();
+            for (int i = 0; i < nodoInicio; ++i) {
+                if (it.hasNext()) {
                     it.next();
                 }
             }
         }
 
-        while (contador<iteraciones){
-            FrecAsignada actual=it.next();
-            int intentos=0;
+        while (contador < iteraciones) {
+            FrecAsignada actual = it.next();
+            int intentos = 0;
             int frecuenciasNodo = datos.getTransmisores().get(actual.getId()).getRango();
             int numFrecuencias = datos.getFrecuencias().get(frecuenciasNodo).tamanio();
 
-            while (intentos < numFrecuencias && contador < iteraciones){
+            while (intentos < numFrecuencias && contador < iteraciones) {
                 ++intentos;
                 ++contador;
                 int nuevaFre = datos.getFrecuencias().get(frecuenciasNodo).getFrecuencias().get(Math.abs(rd.nextInt(numFrecuencias)));
-                int nuevaPuntuacion=solucionActual.recalcular(datos,actual.getId(),nuevaFre,solucionActual);
-                if(solucionActual.getPuntuacion()>nuevaPuntuacion){
+                int nuevaPuntuacion = solucionActual.recalcular(datos, actual.getId(), nuevaFre, solucionActual);
+                if (solucionActual.getPuntuacion() > nuevaPuntuacion) {
                     solucionActual.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(nuevaFre);
                     solucionActual.setPuntuacion(nuevaPuntuacion);
                     actual.setFrecuencia(nuevaFre);
-                    intentos=numFrecuencias;
+                    intentos = numFrecuencias;
                 }
-                
+
             }
-            if(direccion==0){
-                if(!it.hasNext()){
-                    it=vectorIteracion.descendingIterator();
+            if (direccion == 0) {
+                if (!it.hasNext()) {
+                    it = vectorIteracion.descendingIterator();
                 }
-            }else if(direccion==1){
-                if(!it.hasNext()){
-                    it=vectorIteracion.iterator();
+            } else if (direccion == 1) {
+                if (!it.hasNext()) {
+                    it = vectorIteracion.iterator();
                 }
             }
         }
         time = System.nanoTime() - time;
     }
 
-    private void rellenaLista(){
+    private void rellenaLista() {
         vectorIteracion.clear();
-        for(FrecAsignada fr:solucionActual.getFrecuenciasAsignadas().values()){
+        for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             vectorIteracion.add(fr);
         }
     }
@@ -83,15 +83,16 @@ public class BusquedaLocal {
     public Solucion getSolucionActual() {
         return solucionActual;
     }
-    private void actualizaVector(){
+
+    private void actualizaVector() {
         vectorIteracion.clear();
-        for(FrecAsignada fr:solucionActual.getFrecuenciasAsignadas().values()){
+        for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             vectorIteracion.add(fr);
         }
     }
 
     public void getResultados() {
-        System.out.println("Solucion Busqueda Local " + solucionActual.getPuntuacion() + " Tiempo ejecucion " + time/1000000 + " ms");
+        System.out.println("Solucion Busqueda Local " + solucionActual.getPuntuacion() + " Tiempo ejecucion " + time / 1000000 + " ms");
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
