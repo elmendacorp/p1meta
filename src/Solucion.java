@@ -1,6 +1,4 @@
 import com.google.common.collect.Multimap;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -30,18 +28,11 @@ public class Solucion implements Cloneable {
             }
         }
     }
-    //esta funcion es para evitar el recalcular todo el vector de soluciones para alterar la puntuacion
+    //calcula la puntuacion a partir de un nodo y una solucion inicial
 
-    public void recalcular(int frecuenciaOriginal, Filemanager datos, int posicion) {
-        for (Restriccion rs : datos.getRestricciones().get(posicion)) {
-            int fr1 = Math.abs(frecuenciaOriginal - frecuenciasAsignadas.get(rs.getId_restriccion()).getFrecuencia());
-            int fr2 = Math.abs(frecuenciasAsignadas.get(rs.getId()).getFrecuencia() - frecuenciasAsignadas.get(rs.getId_restriccion()).getFrecuencia());
-            System.out.println(frecuenciaOriginal + " " + fr1 + " " + fr2 + " tolerancia" + rs.getTolerancia());
-            if ((fr1 < rs.getTolerancia()) && (fr2 > rs.getTolerancia()) && fr2 > fr1) {
-                setPuntuacion(puntuacion - rs.getPenalizacion());
-            }
-        }
+    public int recalcular(Filemanager datos, int posicion, int frecuencia, Solucion estadoOriginal) {
 
+        return 0;
     }
 
     public Solucion(Solucion var1) {

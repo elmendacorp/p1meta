@@ -133,6 +133,13 @@ public class Filemanager {
                             Integer.parseInt(cadena[4]),
                             Integer.parseInt(cadena[5]));
                     restricciones.put(mirestriccion.getId(), mirestriccion);
+                    //la restriccion duplicada es para facilitar la busqueda
+                    mirestriccion = new Restriccion(
+                            Integer.parseInt(cadena[1]),
+                            Integer.parseInt(cadena[0]),
+                            Integer.parseInt(cadena[4]),
+                            Integer.parseInt(cadena[5]));
+                    restricciones.put(mirestriccion.getId(), mirestriccion);
                 }
                 strLine = br.readLine();
             }
