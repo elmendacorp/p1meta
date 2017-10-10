@@ -1,4 +1,5 @@
 import com.google.common.collect.Multimap;
+
 import java.util.HashMap;
 
 
@@ -19,6 +20,7 @@ public class Solucion implements Cloneable {
 
     /**
      * calcula la puntuacion de una solucion teniendo en cuenta todos los valores
+     *
      * @param restricciones
      */
     public void compruebaRestriccion(Multimap<Integer, Restriccion> restricciones) {
@@ -31,13 +33,14 @@ public class Solucion implements Cloneable {
                 puntuacion += rs.getPenalizacion();
             }
         }
-        puntuacion=puntuacion/2;
+        puntuacion = puntuacion / 2;
     }
     //calcula la puntuacion a partir de un nodo y una solucion inicial
     //tener en cuenta que la puntuacion esta doble
 
     /**
      * calcula la puntuacion marginal de un transmisor en concreto
+     *
      * @param datos
      * @param posicion
      * @param frecuencia
@@ -45,23 +48,23 @@ public class Solucion implements Cloneable {
      * @return
      */
     public int recalcular(Filemanager datos, int posicion, int frecuencia, Solucion estadoOriginal) {
-        int puntosOriginal=0;
-        int puntosModificado=0;
-        int frecuenciaOriginal=estadoOriginal.frecuenciasAsignadas.get(posicion).getFrecuencia();
-        for(Restriccion rs: datos.getRestricciones().get(posicion)){
-            int frecuenciaRestringida=estadoOriginal.getFrecuenciasAsignadas().get(rs.getId_restriccion()).getFrecuencia();
-            if(Math.abs(frecuencia-frecuenciaRestringida)<=rs.getTolerancia()){
-                puntosOriginal+=rs.getPenalizacion();
+        int puntosOriginal = 0;
+        int puntosModificado = 0;
+        int frecuenciaOriginal = estadoOriginal.frecuenciasAsignadas.get(posicion).getFrecuencia();
+        for (Restriccion rs : datos.getRestricciones().get(posicion)) {
+            int frecuenciaRestringida = estadoOriginal.getFrecuenciasAsignadas().get(rs.getId_restriccion()).getFrecuencia();
+            if (Math.abs(frecuencia - frecuenciaRestringida) <= rs.getTolerancia()) {
+                puntosOriginal += rs.getPenalizacion();
             }
-            if(Math.abs(frecuenciaOriginal-frecuenciaRestringida)<=rs.getTolerancia()){
-                puntosModificado+=rs.getPenalizacion();
+            if (Math.abs(frecuenciaOriginal - frecuenciaRestringida) <= rs.getTolerancia()) {
+                puntosModificado += rs.getPenalizacion();
             }
         }
         //System.out.println("Posicion " + posicion+" real "+puntosOriginal+" Modificado "+puntosModificado);
 
-        if(puntosModificado<puntosOriginal){
-            return estadoOriginal.getPuntuacion()-((puntosOriginal-puntosModificado)/2);
-        }else{
+        if (puntosModificado < puntosOriginal) {
+            return estadoOriginal.getPuntuacion() - ((puntosOriginal - puntosModificado) / 2);
+        } else {
             return estadoOriginal.getPuntuacion();
         }
     }
