@@ -42,18 +42,32 @@ public class BusquedaLocal {
         }
 
         while (contador<iteraciones){
-            int intentos=0;
-            int frecuenciasNodo = datos.getTransmisores().get(vectorIteracion.get(nodoInicio).getId()).getRango();
-            int numFrecuencias = datos.getFrecuencias().get(frecuenciasNodo).tamanio();
             FrecAsignada actual=it.next();
+            int intentos=0;
+            int frecuenciasNodo = datos.getTransmisores().get(actual.getId()).getRango();
+            int numFrecuencias = datos.getFrecuencias().get(frecuenciasNodo).tamanio();
+
             while (intentos < numFrecuencias && contador < iteraciones){
                 ++intentos;
-                ++iteraciones;
+                ++contador;
                 int nuevaFre = datos.getFrecuencias().get(frecuenciasNodo).getFrecuencias().get(Math.abs(rd.nextInt(numFrecuencias)));
-                if(solucionActual.getPuntuacion()>solucionActual.recalcular(datos,actual.getId(),nuevaFre,solucionActual)){
+                int nuevaPuntuacion=solucionActual.recalcular(datos,actual.getId(),nuevaFre,solucionActual);
+                if(solucionActual.getPuntuacion()>nuevaPuntuacion){
                     solucionActual.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(nuevaFre);
+                    solucionActual.setPuntuacion(nuevaPuntuacion);
+                    actual.setFrecuencia(nuevaFre);
+                    intentos=numFrecuencias;
                 }
                 
+            }
+            if(direccion==0){
+                if(!it.hasNext()){
+                    it=vectorIteracion.descendingIterator();
+                }
+            }else if(direccion==1){
+                if(!it.hasNext()){
+                    it=vectorIteracion.iterator();
+                }
             }
         }
         time = System.currentTimeMillis() - time;

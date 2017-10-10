@@ -17,6 +17,10 @@ public class Solucion implements Cloneable {
         frecuenciasAsignadas.put(var1.getId(), var1);
     }
 
+    /**
+     * calcula la puntuacion de una solucion teniendo en cuenta todos los valores
+     * @param restricciones
+     */
     public void compruebaRestriccion(Multimap<Integer, Restriccion> restricciones) {
         puntuacion = 0;
         for (Restriccion rs : restricciones.values()) {
@@ -27,12 +31,39 @@ public class Solucion implements Cloneable {
                 puntuacion += rs.getPenalizacion();
             }
         }
+        puntuacion=puntuacion/2;
     }
     //calcula la puntuacion a partir de un nodo y una solucion inicial
+    //tener en cuenta que la puntuacion esta doble
 
+    /**
+     * calcula la puntuacion marginal de un transmisor en concreto
+     * @param datos
+     * @param posicion
+     * @param frecuencia
+     * @param estadoOriginal
+     * @return
+     */
     public int recalcular(Filemanager datos, int posicion, int frecuencia, Solucion estadoOriginal) {
+        int puntosOriginal=0;
+        int puntosModificado=0;
+        int frecuenciaOriginal=estadoOriginal.frecuenciasAsignadas.get(posicion).getFrecuencia();
+        for(Restriccion rs: datos.getRestricciones().get(posicion)){
+            int frecuenciaRestringida=estadoOriginal.getFrecuenciasAsignadas().get(rs.getId_restriccion()).getFrecuencia();
+            if(Math.abs(frecuencia-frecuenciaRestringida)<=rs.getTolerancia()){
+                puntosOriginal+=rs.getPenalizacion();
+            }
+            if(Math.abs(frecuenciaOriginal-frecuenciaRestringida)<=rs.getTolerancia()){
+                puntosModificado+=rs.getPenalizacion();
+            }
+        }
+        //System.out.println("Posicion " + posicion+" real "+puntosOriginal+" Modificado "+puntosModificado);
 
-        return 0;
+        if(puntosModificado<puntosOriginal){
+            return estadoOriginal.getPuntuacion()-((puntosOriginal-puntosModificado)/2);
+        }else{
+            return estadoOriginal.getPuntuacion();
+        }
     }
 
     public Solucion(Solucion var1) {
@@ -40,7 +71,7 @@ public class Solucion implements Cloneable {
         frecuenciasAsignadas = new HashMap<>(var1.frecuenciasAsignadas);
     }
 
-    private void setPuntuacion(int puntos) {
+    public void setPuntuacion(int puntos) {
         puntuacion = puntos;
     }
 
