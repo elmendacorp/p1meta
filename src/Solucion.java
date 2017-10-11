@@ -69,10 +69,6 @@ public class Solucion implements Cloneable {
         }
     }
 
-    public Solucion(Solucion var1) {
-        puntuacion = var1.puntuacion;
-        frecuenciasAsignadas = new HashMap<>(var1.frecuenciasAsignadas);
-    }
 
     public void setPuntuacion(int puntos) {
         puntuacion = puntos;
@@ -86,9 +82,6 @@ public class Solucion implements Cloneable {
         return frecuenciasAsignadas;
     }
 
-    public int tamanio() {
-        return frecuenciasAsignadas.size();
-    }
 
 
 }

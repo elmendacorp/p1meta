@@ -92,7 +92,7 @@ public class BusquedaLocal {
     }
 
     public void getResultados() {
-        System.out.println("Solucion Busqueda Local " + solucionActual.getPuntuacion() + " Tiempo ejecucion " + time / 1000000 + " ms");
+        System.out.println(solucionActual.getPuntuacion() + " " + time / 1000000 + " ms");
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }

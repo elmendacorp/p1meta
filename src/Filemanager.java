@@ -24,7 +24,7 @@ public class Filemanager {
         restricciones = ArrayListMultimap.create();
         leeRestricciones(path + "ctr.txt");
 
-        System.out.println("Fin carga: " + path + " -> Transmisores: " + transmisores.size() + " Frecuencias: " + frecuencias.size() + " Restrcciones: " + restricciones.size());
+        System.out.println("Fin carga: " + path + " -> Transmisores: " + transmisores.size() + " Frecuencias: " + frecuencias.size() + " Restrcciones: " + restricciones.size()/2);
 
     }
 

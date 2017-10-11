@@ -1,9 +1,10 @@
+
 public class Main2 {
 
     public static final int SEMILLA1 = 77361422;
-    public static final int SEMILLA2 = 23456781;
+    public static final int SEMILLA2 = 77377144;
     public static final int SEMILLA3 = 36142277;
-    public static final int SEMILLA4 = 45678123;
+    public static final int SEMILLA4 = 37714477;
     public static final int SEMILLA5 = 14227736;
 
     public static void main(String[] args) {
@@ -27,10 +28,11 @@ public class Main2 {
         int[] semillaFinal = {SEMILLA1, SEMILLA2, SEMILLA3, SEMILLA4, SEMILLA5};
 
         for (Filemanager fl : fileFinal) {
+            System.out.println("---------------------------------------------");
             for (Integer in : semillaFinal) {
                 Greedy miGreedy = new Greedy(fl, in);
                 miGreedy.getSolucion().compruebaRestriccion(fl.getRestricciones());
-                miGreedy.getResultados();
+                //miGreedy.getResultados();
                 BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), in);
                 miBusqueda.generaSoluciones(fl, 10000);
                 miBusqueda.getResultados();

@@ -9,6 +9,10 @@ public class Grasp {
         solucionActual= new Solucion();
         rd = new Random();
         rd.setSeed(semilla);
+        for(Transmisor tr:datos.getTransmisores().values()){
+            FrecAsignada fr= new FrecAsignada(tr.getId(),0);
+            solucionActual.getFrecuenciasAsignadas().put(tr.getId(),fr);
+        }
     }
 
 }

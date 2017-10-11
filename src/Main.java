@@ -27,9 +27,10 @@ public class Main {
         Filemanager filemanager10 = new Filemanager("./archivos_guion/instancias/scen09/");
         Filemanager filemanager11 = new Filemanager("./archivos_guion/instancias/scen10/");
 
-        //filemanager6.imprimeDatos();
+
 
         Filemanager fileFinal = filemanager1;
+        //fileFinal.imprimeDatos();
         int semillaFinal = SEMILLA1;
 
         Greedy miGreedy = new Greedy(fileFinal, semillaFinal);
