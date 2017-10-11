@@ -1,0 +1,54 @@
+public class CeldaGrasp {
+    private int id;
+    private int frecuencia;
+    private int coste;
+    private  int posicion;
+    private float probabilidad;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getFrecuencia() {
+        return frecuencia;
+    }
+
+    public void setFrecuencia(int frecuencia) {
+        this.frecuencia = frecuencia;
+    }
+
+    public int getCoste() {
+        return coste;
+    }
+
+    public void setCoste(int coste) {
+        this.coste = coste;
+    }
+
+    public int getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
+    }
+
+    public float getProbabilidad() {
+        return probabilidad;
+    }
+
+    public void setProbabilidad(float probabilidad) {
+        this.probabilidad = probabilidad;
+    }
+
+    public CeldaGrasp(int identificador, int fre, int cost,int pos, int prob){
+        frecuencia=fre;
+        id=identificador;
+        coste=cost;
+        posicion=pos;
+        probabilidad=prob;
+    }
+}
