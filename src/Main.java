@@ -31,6 +31,7 @@ public class Main {
         Filemanager filemanager11 = new Filemanager("./archivos_guion/instancias/scen10/");
 
 
+
         Filemanager fileFinal = filemanager1;
         //fileFinal.imprimeDatos();
         int semillaFinal = SEMILLA1;
@@ -41,6 +42,10 @@ public class Main {
         BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
         miBusqueda.generaSoluciones(fileFinal, 10000);
         miBusqueda.getResultados();
+        Grasp miGrasp = new Grasp(fileFinal,semillaFinal);
+        miGrasp.generaSolucion();
+
+
 
     }
 }

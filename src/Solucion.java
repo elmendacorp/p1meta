@@ -69,6 +69,25 @@ public class Solucion implements Cloneable {
         }
     }
 
+    /**
+     * Funcion que en base a una solucion nos da los puntos de una frecuencia asociada a su nodo
+     * @param datos
+     * @param posicion
+     * @param frecuencia
+     * @param estadoOriginal
+     * @return
+     */
+    public int puntosFrecuencia(Filemanager datos, int posicion, int frecuencia, Solucion estadoOriginal) {
+        int puntosOriginal = 0;
+        for (Restriccion rs : datos.getRestricciones().get(posicion)) {
+            int frecuenciaRestringida = estadoOriginal.getFrecuenciasAsignadas().get(rs.getId_restriccion()).getFrecuencia();
+            if (Math.abs(frecuencia - frecuenciaRestringida) <= rs.getTolerancia()) {
+                puntosOriginal += rs.getPenalizacion();
+            }
+        }
+        return puntosOriginal;
+    }
+
 
     public void setPuntuacion(int puntos) {
         puntuacion = puntos;
