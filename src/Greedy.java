@@ -1,10 +1,19 @@
 import java.util.Random;
 
+/**
+ * Generador de soluciones tipo GREEDY
+ */
 public class Greedy {
     private Solucion solucion;
     static Random aleatorio;
     private float time;
 
+    /**
+     * Constructor parametrizado
+     *
+     * @param conjuntoDatos conjunto de datos de trabajo
+     * @param semilla       Semilla para la aleatorizacion
+     */
     public Greedy(Filemanager conjuntoDatos, int semilla) {
         time = System.nanoTime();
         solucion = new Solucion();
@@ -20,6 +29,9 @@ public class Greedy {
         time = System.nanoTime() - time;
     }
 
+    /**
+     * Funcion para mostrar los resultados de la ejecucion
+     */
     public void getResultados() {
         System.out.println(solucion.getPuntuacion() + " " + time / 1000000 + " ms");
         for (FrecAsignada fr : solucion.getFrecuenciasAsignadas().values()) {

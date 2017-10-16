@@ -1,15 +1,15 @@
+/**
+ * Clase para representar una celda en la estructura GRASP
+ */
 public class CeldaGrasp {
     private int id;
     private int frecuencia;
     private int coste;
-    private  int posicion;
+    private int posicion;
     private float probabilidad;
+
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getFrecuencia() {
@@ -44,11 +44,11 @@ public class CeldaGrasp {
         this.probabilidad = probabilidad;
     }
 
-    public CeldaGrasp(int identificador, int fre, int cost,int pos, int prob){
-        frecuencia=fre;
-        id=identificador;
-        coste=cost;
-        posicion=pos;
-        probabilidad=prob;
+    public CeldaGrasp(int identificador, int fre, int cost, int pos, int prob) {
+        frecuencia = fre;
+        id = identificador;
+        coste = cost;
+        posicion = pos;
+        probabilidad = prob;
     }
 }

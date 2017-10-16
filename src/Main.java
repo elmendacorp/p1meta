@@ -5,6 +5,9 @@
  * @Mail fjrl0016@red.ujaen.es
  */
 
+/**
+ * Clase para la prueba de ejecucion sobre un unico conjunto de datos
+ */
 public class Main {
 
     public static final int SEMILLA1 = 77361422;
@@ -26,7 +29,6 @@ public class Main {
         Filemanager filemanager9 = new Filemanager("./archivos_guion/instancias/scen08/");
         Filemanager filemanager10 = new Filemanager("./archivos_guion/instancias/scen09/");
         Filemanager filemanager11 = new Filemanager("./archivos_guion/instancias/scen10/");
-
 
 
         Filemanager fileFinal = filemanager1;

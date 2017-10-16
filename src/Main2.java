@@ -1,4 +1,6 @@
-
+/**
+ * Clase para lanzar la bateria de ejecuciones sobre todos los conjuntos de datos
+ */
 public class Main2 {
 
     public static final int SEMILLA1 = 77361422;

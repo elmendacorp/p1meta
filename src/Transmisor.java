@@ -14,15 +14,8 @@ public class Transmisor {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getRango() {
         return rango;
     }
 
-    public void setRango(int rango) {
-        this.rango = rango;
-    }
 }

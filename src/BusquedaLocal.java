@@ -2,6 +2,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * clase de busqueda local por defecto
+ */
 public class BusquedaLocal {
     private float time;
     private Solucion solucionActual;
@@ -10,6 +13,12 @@ public class BusquedaLocal {
     private int direccion; // 1 derecha, 0 izquierda
     private Random rd;
 
+    /**
+     * Constructor parametrizado
+     *
+     * @param solucion Solucion de la que parte el problema
+     * @param semilla  Semmilla para la aleatorizacion
+     */
     public BusquedaLocal(Solucion solucion, int semilla) {
         solucionActual = solucion;
         vectorIteracion = new LinkedList<>();
@@ -20,9 +29,12 @@ public class BusquedaLocal {
         direccion = Math.abs(rd.nextInt(2));
     }
 
+    /**
+     * @param datos       Conjunto de datos de trabajo
+     * @param iteraciones Limite de iteraciones del problema
+     */
     public void generaSoluciones(Filemanager datos, int iteraciones) {
         time = System.nanoTime();
-        rellenaLista();
         int contador = 0;
         Iterator<FrecAsignada> it;
         if (direccion == 0) {
@@ -73,24 +85,19 @@ public class BusquedaLocal {
         time = System.nanoTime() - time;
     }
 
-    private void rellenaLista() {
-        vectorIteracion.clear();
-        for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
-            vectorIteracion.add(fr);
-        }
-    }
 
-    public Solucion getSolucionActual() {
-        return solucionActual;
-    }
-
+    /**
+     * Inicializacion del vector temporal donde testearemos los cambios
+     */
     private void actualizaVector() {
-        vectorIteracion.clear();
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             vectorIteracion.add(fr);
         }
     }
 
+    /**
+     * Funcion para mostrar los resultados
+     */
     public void getResultados() {
         System.out.println(solucionActual.getPuntuacion() + " " + time / 1000000 + " ms");
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {

@@ -1,4 +1,5 @@
 import com.google.common.collect.Multimap;
+
 import java.util.HashMap;
 
 
@@ -80,7 +81,6 @@ public class Solucion implements Cloneable {
     public HashMap<Integer, FrecAsignada> getFrecuenciasAsignadas() {
         return frecuenciasAsignadas;
     }
-
 
 
 }
