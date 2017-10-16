@@ -51,4 +51,12 @@ public class CeldaGrasp {
         posicion = pos;
         probabilidad = prob;
     }
+    public CeldaGrasp(CeldaGrasp cp) {
+        frecuencia = cp.frecuencia;
+        id = cp.id;
+        coste = cp.coste;
+        posicion = cp.posicion;
+        probabilidad =cp.probabilidad;
+    }
+    public CeldaGrasp(){}
 }

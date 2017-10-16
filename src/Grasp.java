@@ -25,6 +25,7 @@ public class Grasp {
         HashMap<Integer, CosteFrecuencia> frecuenciasProcesadas = new HashMap<>();
         while (nodosAsegurados < data.getTransmisores().size()) {
             //Reinicio del estado
+            CeldaGrasp tmp= new CeldaGrasp();
             resetSolucionTemporal();
             solucionLocal.getFrecuenciasAsignadas().clear();
             solucionLocal.setPuntuacion(0);
@@ -74,12 +75,12 @@ public class Grasp {
                         }
                     }
                     if (solucionLocal.getFrecuenciasAsignadas().containsKey(t.getId())) {
-                        solucionLocal.getFrecuenciasAsignadas().get(t.getId()).setFrecuencia(nuevaFrecuencia);
-                        solucionTemporal.get(t.getId()).setFrecuencia(nuevaFrecuencia);
+                        solucionLocal.getFrecuenciasAsignadas().get(t.getId()).setFrecuencia(elegido);
+                        solucionTemporal.get(t.getId()).setFrecuencia(elegido);
                         solucionTemporal.get(t.getId()).setCoste(coste);
                     } else {
-                        solucionLocal.getFrecuenciasAsignadas().put(t.getId(), new FrecAsignada(t.getId(), nuevaFrecuencia));
-                        solucionTemporal.put(t.getId(), new CeldaGrasp(t.getId(), nuevaFrecuencia, coste, 0, 0));
+                        solucionLocal.getFrecuenciasAsignadas().put(t.getId(), new FrecAsignada(t.getId(), elegido));
+                        solucionTemporal.put(t.getId(), new CeldaGrasp(t.getId(), elegido, coste, 0, 0));
                     }
                 }
 
@@ -112,9 +113,22 @@ public class Grasp {
                 pAcumulada+=prob;
                 cd.setProbabilidad(pAcumulada);
             }
+            float rand= rd.nextFloat();
+            float acumulador=0;
+            for(CeldaGrasp cp:solucionTemporal.values()){
+                acumulador+=cp.getProbabilidad();
+                if(acumulador<rand){
+                }else{
+                    tmp=new CeldaGrasp(cp);
+                    break;
+                }
+            }
 
-
-            ++nodosAsegurados;
+            if(!solucionActual.getFrecuenciasAsignadas().containsKey(tmp.getId())){
+                solucionActual.getFrecuenciasAsignadas().put(tmp.getId(),new FrecAsignada(tmp.getId(),tmp.getFrecuencia()));
+                ++nodosAsegurados;
+            }
+            System.out.println(nodosAsegurados);
         }
         time = System.nanoTime() - time;
     }
@@ -140,6 +154,10 @@ public class Grasp {
 
         }
         return puntosOriginal;
+    }
+
+    public Solucion getSolucion(){
+        return solucionActual;
     }
 
     /**
