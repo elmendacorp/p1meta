@@ -44,6 +44,7 @@ public class Main {
         miBusqueda.getResultados();
         Grasp miGrasp = new Grasp(fileFinal,semillaFinal);
         miGrasp.generaSolucion();
+        miGrasp.getResultados();
 
 
 

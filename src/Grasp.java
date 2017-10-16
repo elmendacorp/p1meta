@@ -20,6 +20,7 @@ public class Grasp {
     }
 
     public void generaSolucion() {
+        time = System.nanoTime();
         int nodosAsegurados = 0;
         HashMap<Integer, CosteFrecuencia> frecuenciasProcesadas = new HashMap<>();
         while (nodosAsegurados < data.getTransmisores().size()) {
@@ -83,14 +84,39 @@ public class Grasp {
                 }
 
             }
+            //con esto se calcula el coste verdadero de cada  nodo y no el marginal
+            for (FrecAsignada fr : solucionLocal.getFrecuenciasAsignadas().values()) {
+                solucionTemporal.get(fr.getId()).setCoste(puntosFrecuencia(fr.getId(), fr.getFrecuencia()));
+            }
             //asignar posiciones en funcion al coste
-
+            int asignados = 0;
+            int posicionRelativa = 0;
+            int puntuacion = 0;
+            float tope=0;
+            while (asignados < solucionTemporal.size()) {
+                posicionRelativa = asignados+1;
+                for (CeldaGrasp cd : solucionTemporal.values()) {
+                    if (cd.getCoste() == puntuacion) {
+                        cd.setPosicion(posicionRelativa);
+                        ++asignados;
+                        tope+=(1.0/posicionRelativa);
+                    }
+                }
+                ++puntuacion;
+            }
 
             //calculo de la probabilidad en base al sesgo
+            float pAcumulada=0;
+            for(CeldaGrasp cd: solucionTemporal.values()){
+                float prob=((float)(1.0/cd.getPosicion())/tope);
+                pAcumulada+=prob;
+                cd.setProbabilidad(pAcumulada);
+            }
 
 
             ++nodosAsegurados;
         }
+        time = System.nanoTime() - time;
     }
 
     public void resetSolucionTemporal() {
@@ -105,7 +131,7 @@ public class Grasp {
     public int puntosFrecuencia(int posicion, int frecuencia) {
         int puntosOriginal = 0;
         for (Restriccion rs : data.getRestricciones().get(posicion)) {
-            if(solucionLocal.getFrecuenciasAsignadas().containsKey(rs.getId_restriccion())) {
+            if (solucionLocal.getFrecuenciasAsignadas().containsKey(rs.getId_restriccion())) {
                 int frecuenciaRestringida = solucionLocal.getFrecuenciasAsignadas().get(rs.getId_restriccion()).getFrecuencia();
                 if (Math.abs(frecuencia - frecuenciaRestringida) <= rs.getTolerancia()) {
                     puntosOriginal += rs.getPenalizacion();
@@ -114,6 +140,16 @@ public class Grasp {
 
         }
         return puntosOriginal;
+    }
+
+    /**
+     * Funcion para mostrar los resultados
+     */
+    public void getResultados() {
+        System.out.println(solucionActual.getPuntuacion() + " " + time / 1000000 + " ms");
+        for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
+            //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
+        }
     }
 
 }
