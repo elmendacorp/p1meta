@@ -12,9 +12,9 @@ public class BLGrasp {
     private int nodoInicio;
     private int direccion; // 1 derecha, 0 izquierda
     private Random rd;
-    private int nodosSinCambio=0;
-    private int contador = 0;
-    int intentosMejora = 0;
+    private static int nodosSinCambio;
+    private static int intentosMejora;
+    private static int contador;
 
     /**
      * Constructor parametrizado
@@ -30,6 +30,9 @@ public class BLGrasp {
         rd.setSeed(semilla);
         nodoInicio = Math.abs(rd.nextInt(vectorIteracion.size()));
         direccion = Math.abs(rd.nextInt(2));
+        nodosSinCambio=0;
+        intentosMejora = 0;
+        contador = 0;
     }
 
     /**
@@ -41,6 +44,8 @@ public class BLGrasp {
      */
     public void generaSoluciones(Filemanager datos, int iteraciones, int limite) {
         time = System.nanoTime();
+        intentosMejora = 0;
+        nodosSinCambio=0;
         Iterator<FrecAsignada> it;
         if (direccion == 0) {
             it = vectorIteracion.descendingIterator();
@@ -64,23 +69,22 @@ public class BLGrasp {
             int frecuenciasNodo = datos.getTransmisores().get(actual.getId()).getRango();
             int numFrecuencias = datos.getFrecuencias().get(frecuenciasNodo).tamanio();
 
-            while (intentos < numFrecuencias && contador < iteraciones && nodosSinCambio< solucionActual.getFrecuenciasAsignadas().size()) {
+            while (intentos < numFrecuencias && contador < iteraciones && intentosMejora < limite && nodosSinCambio < solucionActual.getFrecuenciasAsignadas().size()) {
                 ++intentos;
                 ++contador;
                 int nuevaFre = datos.getFrecuencias().get(frecuenciasNodo).getFrecuencias().get(Math.abs(rd.nextInt(numFrecuencias)));
                 int nuevaPuntuacion = solucionActual.recalcular(datos, actual.getId(), nuevaFre, solucionActual);
                 if (solucionActual.getPuntuacion() > nuevaPuntuacion) {
-                    intentosMejora = 0;
                     nodosSinCambio=0;
                     solucionActual.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(nuevaFre);
                     solucionActual.setPuntuacion(nuevaPuntuacion);
                     actual.setFrecuencia(nuevaFre);
                     intentos = numFrecuencias;
+                    ++intentosMejora;
                 } else {
                     ++intentosMejora;
                     ++nodosSinCambio;
                 }
-
             }
             if (direccion == 0) {
                 if (!it.hasNext()) {
@@ -108,9 +112,14 @@ public class BLGrasp {
      * Metodo para devolver los resultados
      */
     public void getResultados() {
-        System.out.println(solucionActual.getPuntuacion() + " " + time / 1000000 + " ms"+ " Nodos sin cambio: "+nodosSinCambio + " IntentosMejora: "+intentosMejora);
+        System.out.println(solucionActual.getPuntuacion() + " " + time / 1000000 + " ms"+ " IntentosMejora: "+contador);
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
     }
+    public float getTime(){return time/1000000;}
+
+    public int getPuntuacion(){return solucionActual.getPuntuacion();}
+
+    public int iteracionesConsumidas(){return contador;}
 }

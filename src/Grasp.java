@@ -171,6 +171,8 @@ public class Grasp {
         return solucionActual;
     }
 
+    public float getTime(){return time/1000000;}
+
     /**
      * Funcion para mostrar los resultados
      */
