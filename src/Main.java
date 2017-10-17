@@ -32,7 +32,7 @@ public class Main {
 
 
 
-        Filemanager fileFinal = filemanager1;
+        Filemanager fileFinal = filemanager3;
         //fileFinal.imprimeDatos();
         int semillaFinal = SEMILLA1;
 

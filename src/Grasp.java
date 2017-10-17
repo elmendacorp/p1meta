@@ -22,6 +22,7 @@ public class Grasp {
 
     public void generaSolucion() {
         time = System.nanoTime();
+        solucionActual.getFrecuenciasAsignadas().clear();
         int nodosAsegurados = 0;
         HashMap<Integer, CosteFrecuencia> frecuenciasProcesadas = new HashMap<>();
         while (nodosAsegurados < data.getTransmisores().size()) {
