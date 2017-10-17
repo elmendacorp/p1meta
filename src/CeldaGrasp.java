@@ -6,7 +6,7 @@ public class CeldaGrasp {
     private int frecuencia;
     private int coste;
     private int posicion;
-    private float probabilidad;
+    private double probabilidad;
 
     public int getId() {
         return id;
@@ -36,11 +36,11 @@ public class CeldaGrasp {
         this.posicion = posicion;
     }
 
-    public float getProbabilidad() {
+    public double getProbabilidad() {
         return probabilidad;
     }
 
-    public void setProbabilidad(float probabilidad) {
+    public void setProbabilidad(double probabilidad) {
         this.probabilidad = probabilidad;
     }
 

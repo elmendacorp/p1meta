@@ -36,15 +36,18 @@ public class Main {
         //fileFinal.imprimeDatos();
         int semillaFinal = SEMILLA1;
 
-        Greedy miGreedy = new Greedy(fileFinal, semillaFinal);
-        miGreedy.getSolucion().compruebaRestriccion(fileFinal.getRestricciones());
-        miGreedy.getResultados();
-        BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
-        miBusqueda.generaSoluciones(fileFinal, 10000);
-        miBusqueda.getResultados();
+        //Greedy miGreedy = new Greedy(fileFinal, semillaFinal);
+        //miGreedy.getSolucion().compruebaRestriccion(fileFinal.getRestricciones());
+        //miGreedy.getResultados();
+        //BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
+        //miBusqueda.generaSoluciones(fileFinal, 10000);
+        //miBusqueda.getResultados();
         Grasp miGrasp = new Grasp(fileFinal,semillaFinal);
         miGrasp.generaSolucion();
         miGrasp.getResultados();
+        BLGrasp miBLGrasp= new BLGrasp(miGrasp.getSolucion(),semillaFinal);
+        miBLGrasp.generaSoluciones(fileFinal,10000,400);
+        miBLGrasp.getResultados();
 
 
 
