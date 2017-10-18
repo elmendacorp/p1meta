@@ -177,7 +177,7 @@ public class Grasp {
      * Funcion para mostrar los resultados
      */
     public void getResultados() {
-        solucionActual.compruebaRestriccion(data.getRestricciones());
+        solucionActual.calculaRestriccion(data.getRestricciones());
         System.out.println(solucionActual.getPuntuacion() + " " + time /1000000 + " ms");
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());

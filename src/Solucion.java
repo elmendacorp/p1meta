@@ -23,7 +23,7 @@ public class Solucion implements Cloneable {
      *
      * @param restricciones
      */
-    public void compruebaRestriccion(Multimap<Integer, Restriccion> restricciones) {
+    public void calculaRestriccion(Multimap<Integer, Restriccion> restricciones) {
         puntuacion = 0;
         for (Restriccion rs : restricciones.values()) {
             int tx = frecuenciasAsignadas.get(rs.getId()).getFrecuencia();

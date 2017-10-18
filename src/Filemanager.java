@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Filemanager {
 
     private HashMap<Integer, Transmisor> transmisores;
@@ -24,7 +23,7 @@ public class Filemanager {
         restricciones = ArrayListMultimap.create();
         leeRestricciones(path + "ctr.txt");
 
-        System.out.println("Fin carga: " + path + " -> Transmisores: " + transmisores.size() + " Frecuencias: " + frecuencias.size() + " Restrcciones: " + restricciones.size() / 2);
+        System.out.println("Fin carga: " + path + " -> Transmisores: " + transmisores.size() + " Frecuencias: " + frecuencias.size() + " Restricciones: " + restricciones.size() / 2);
 
     }
 

@@ -56,13 +56,13 @@ public class BusquedaLocal {
         while (contador < iteraciones) {
             FrecAsignada actual = it.next();
             int intentos = 0;
-            int frecuenciasNodo = datos.getTransmisores().get(actual.getId()).getRango();
-            int numFrecuencias = datos.getFrecuencias().get(frecuenciasNodo).tamanio();
+            int rangoTransmisor = datos.getTransmisores().get(actual.getId()).getRango();
+            int numFrecuencias = datos.getFrecuencias().get(rangoTransmisor).tamanio();
 
             while (intentos < numFrecuencias && contador < iteraciones) {
                 ++intentos;
                 ++contador;
-                int nuevaFre = datos.getFrecuencias().get(frecuenciasNodo).getFrecuencias().get(Math.abs(rd.nextInt(numFrecuencias)));
+                int nuevaFre = datos.getFrecuencias().get(rangoTransmisor).getFrecuencias().get(Math.abs(rd.nextInt(numFrecuencias)));
                 int nuevaPuntuacion = solucionActual.recalcular(datos, actual.getId(), nuevaFre, solucionActual);
                 if (solucionActual.getPuntuacion() > nuevaPuntuacion) {
                     solucionActual.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(nuevaFre);
