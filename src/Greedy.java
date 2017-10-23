@@ -33,7 +33,7 @@ public class Greedy {
      * Funcion para mostrar los resultados de la ejecucion
      */
     public void getResultados() {
-        System.out.println(solucion.getPuntuacion() + " " + time / 1000000 + " ms");
+        System.out.println("Greedy: "+solucion.getPuntuacion() + " " + time / 1000000 + " ms");
         for (FrecAsignada fr : solucion.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }

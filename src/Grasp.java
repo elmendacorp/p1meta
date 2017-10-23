@@ -27,7 +27,7 @@ public class Grasp {
         HashMap<Integer, CosteFrecuencia> frecuenciasProcesadas = new HashMap<>();
         while (nodosAsegurados < data.getTransmisores().size()) {
             //Reinicio del estado
-            CeldaGrasp tmp= new CeldaGrasp();
+            CeldaGrasp tmp = new CeldaGrasp();
             resetSolucionTemporal();
             solucionLocal.getFrecuenciasAsignadas().clear();
             solucionLocal.setPuntuacion(0);
@@ -48,16 +48,20 @@ public class Grasp {
             //rellenar el resto con la dinamica del primero mejor si se 0 elegimos ese
 
             for (Transmisor t : data.getTransmisores().values()) {
-                //if(!solucionLocal.getFrecuenciasAsignadas().containsKey(t.getId())) {
+                if (!solucionLocal.getFrecuenciasAsignadas().containsKey(t.getId())) {
                     frecuenciasProcesadas.clear();
-                    int nuevaFrecuencia = data.getFrecuencias().get(t.getRango()).getFrecuencias().get(Math.abs(rd.nextInt(data.getFrecuencias().get(t.getRango()).tamanio())));
-                    int puntos = puntosFrecuencia(t.getId(), nuevaFrecuencia);
-                    while (puntos > 0 && frecuenciasProcesadas.size() < data.getFrecuencias().get(t.getRango()).getFrecuencias().size()) {
-                        if (!frecuenciasProcesadas.containsKey(nuevaFrecuencia)) {
-                            frecuenciasProcesadas.put(nuevaFrecuencia, new CosteFrecuencia(nuevaFrecuencia, puntos));
+                    int puntos = 0;
+                    int nuevaFrecuencia = 0;
+                    for (Integer fr : data.getFrecuencias().get(t.getRango()).getFrecuencias()) {
+                        nuevaFrecuencia = fr;
+                        puntos = puntosFrecuencia(t.getId(), fr);
+                        if (puntos == 0) {
+                            break;
+                        } else if (!frecuenciasProcesadas.containsKey(fr)) {
+                            frecuenciasProcesadas.put(fr, new CosteFrecuencia(fr, puntos));
                         }
-                        nuevaFrecuencia = data.getFrecuencias().get(t.getRango()).getFrecuencias().get(Math.abs(rd.nextInt(data.getFrecuencias().get(t.getRango()).tamanio())));
-                        puntos = puntosFrecuencia(t.getId(), nuevaFrecuencia);
+                        puntos = puntosFrecuencia(t.getId(), fr);
+
                     }
 
                     if (puntos == 0) {
@@ -86,7 +90,7 @@ public class Grasp {
                             solucionTemporal.put(t.getId(), new CeldaGrasp(t.getId(), elegido, coste, 0, 0));
                         }
                     }
-                //}
+                }
 
             }
             //con esto se calcula el coste verdadero de cada  nodo y no el marginal
@@ -94,7 +98,7 @@ public class Grasp {
                 solucionTemporal.get(fr.getId()).setCoste(puntosFrecuencia(fr.getId(), fr.getFrecuencia()));
             }
 
-            for(FrecAsignada fr:solucionActual.getFrecuenciasAsignadas().values()){
+            for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
                 solucionTemporal.remove(fr.getId());
             }
 
@@ -102,40 +106,40 @@ public class Grasp {
             int asignados = 0;
             int posicionRelativa;
             int puntuacion = 0;
-            double tope=0.0;
+            double tope = 0.0;
             while (asignados < solucionTemporal.size()) {
-                posicionRelativa = asignados+1;
+                posicionRelativa = asignados + 1;
                 for (CeldaGrasp cd : solucionTemporal.values()) {
                     if (cd.getCoste() == puntuacion) {
                         cd.setPosicion(posicionRelativa);
                         ++asignados;
-                        tope+=(1.0/posicionRelativa);
+                        tope += (1.0 / posicionRelativa);
                     }
                 }
                 ++puntuacion;
             }
 
             //calculo de la probabilidad en base al sesgo
-            double pAcumulada=0.0;
-            for(CeldaGrasp cd: solucionTemporal.values()){
-                double prob=((1.0/cd.getPosicion())/tope);
-                pAcumulada+=prob;
+            double pAcumulada = 0.0;
+            for (CeldaGrasp cd : solucionTemporal.values()) {
+                double prob = ((1.0 / cd.getPosicion()) / tope);
+                pAcumulada += prob;
                 cd.setProbabilidad(pAcumulada);
             }
             //buscamos el que tiene la probabilidad elegida en funcion de la acumulada
-            double rand= rd.nextDouble();
-            double acumulador=0;
-            for(CeldaGrasp cp:solucionTemporal.values()){
-                acumulador+=cp.getProbabilidad();
-                if(acumulador<rand){
-                }else{
-                    tmp=new CeldaGrasp(cp);
+            double rand = rd.nextDouble();
+            double acumulador = 0;
+            for (CeldaGrasp cp : solucionTemporal.values()) {
+                acumulador += cp.getProbabilidad();
+                if (acumulador < rand) {
+                } else {
+                    tmp = new CeldaGrasp(cp);
                     break;
                 }
             }
             //si no forma parte de la solucion final lo añadimos
-            if(!solucionActual.getFrecuenciasAsignadas().containsKey(tmp.getId())){
-                solucionActual.getFrecuenciasAsignadas().put(tmp.getId(),new FrecAsignada(tmp.getId(),tmp.getFrecuencia()));
+            if (!solucionActual.getFrecuenciasAsignadas().containsKey(tmp.getId())) {
+                solucionActual.getFrecuenciasAsignadas().put(tmp.getId(), new FrecAsignada(tmp.getId(), tmp.getFrecuencia()));
                 ++nodosAsegurados;
                 //System.out.println(nodosAsegurados+" "+ (System.nanoTime()-time)/1000000);
             }
@@ -167,18 +171,20 @@ public class Grasp {
         return puntosOriginal;
     }
 
-    public Solucion getSolucion(){
+    public Solucion getSolucion() {
         return solucionActual;
     }
 
-    public float getTime(){return time/1000000;}
+    public float getTime() {
+        return time / 1000000;
+    }
 
     /**
      * Funcion para mostrar los resultados
      */
     public void getResultados() {
         solucionActual.calculaRestriccion(data.getRestricciones());
-        System.out.println(solucionActual.getPuntuacion() + " " + time /1000000 + " ms");
+        System.out.println(solucionActual.getPuntuacion() + " " + time / 1000000 + " ms");
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }

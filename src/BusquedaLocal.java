@@ -55,21 +55,19 @@ public class BusquedaLocal {
 
         while (contador < iteraciones) {
             FrecAsignada actual = it.next();
-            int intentos = 0;
             int rangoTransmisor = datos.getTransmisores().get(actual.getId()).getRango();
-            int numFrecuencias = datos.getFrecuencias().get(rangoTransmisor).tamanio();
-
-            while (intentos < numFrecuencias && contador < iteraciones) {
-                ++intentos;
+            for(Integer fr:datos.getFrecuencias().get(rangoTransmisor).getFrecuencias()) {
                 ++contador;
-                int nuevaFre = datos.getFrecuencias().get(rangoTransmisor).getFrecuencias().get(Math.abs(rd.nextInt(numFrecuencias)));
-                int nuevaPuntuacion = solucionActual.recalcular(datos, actual.getId(), nuevaFre, solucionActual);
-                if (solucionActual.getPuntuacion() > nuevaPuntuacion) {
-                    solucionActual.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(nuevaFre);
-                    solucionActual.setPuntuacion(nuevaPuntuacion);
-                    actual.setFrecuencia(nuevaFre);
-                    intentos = numFrecuencias;
+                if(contador>iteraciones){
+                    break;
                 }
+                int nuevaPuntuacion = solucionActual.recalcular(datos, actual.getId(), fr, solucionActual);
+                if (solucionActual.getPuntuacion() > nuevaPuntuacion) {
+                    solucionActual.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(fr);
+                    solucionActual.setPuntuacion(nuevaPuntuacion);
+                    actual.setFrecuencia(fr);
+                }
+
 
             }
             if (direccion == 0) {
@@ -99,7 +97,7 @@ public class BusquedaLocal {
      * Funcion para mostrar los resultados
      */
     public void getResultados() {
-        System.out.println(solucionActual.getPuntuacion() + " " + time / 1000000 + " ms");
+        System.out.println("Busqueda Local: "+solucionActual.getPuntuacion() + " " + time / 1000000 + " ms");
         for (FrecAsignada fr : solucionActual.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
