@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Map;
+import java.util.*;
 
 public class Tabu {
 
@@ -24,12 +22,26 @@ public class Tabu {
         int iteraciones = 0;
         int size = datos.getTransmisores().size();
         while(iteraciones < 10000){
+            direccion = Math.abs(rd.nextInt(2));
             ++iteraciones;
 
             int idTransmisor = datos.getTransmisores().get(rd.nextInt() % size).getId();
             int rango = datos.getTransmisores().get(idTransmisor).getRango();
 
-            for(Integer fr : datos.getFrecuencias().get(rango).getFrecuencias()){
+            int frecInicial =  Math.abs(rd.nextInt(datos.getFrecuencias().get(rango).getFrecuencias().size()));
+
+            for(int i=0; i < datos.getFrecuencias().get(rango).getFrecuencias().size(); ++i){
+                if(datos.getFrecuencias().get(rango).getFrecuencias().get(i) == frecInicial){
+                    //sacar el nodo inicial, ponerlo en otra funcion
+                }
+            }
+
+
+            if(direccion == 0){
+                //izquierda
+
+
+            }else{
 
             }
 
