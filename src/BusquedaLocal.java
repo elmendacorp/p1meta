@@ -17,7 +17,7 @@ public class BusquedaLocal {
      * Constructor parametrizado
      *
      * @param solucion Solucion de la que parte el problema
-     * @param semilla  Semmilla para la aleatorizacion
+     * @param semilla  Semilla para la aleatorizacion
      */
     public BusquedaLocal(Solucion solucion, int semilla) {
         solucionActual = solucion;
