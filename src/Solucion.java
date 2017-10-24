@@ -88,6 +88,13 @@ public class Solucion implements Cloneable {
         return puntosOriginal;
     }
 
+    public Solucion(Solucion original){
+        frecuenciasAsignadas.clear();
+        for(FrecAsignada fr:original.frecuenciasAsignadas.values()){
+            frecuenciasAsignadas.put(fr.getId(),new FrecAsignada(fr.getId(),fr.getFrecuencia()));
+        }
+        puntuacion= original.getPuntuacion();
+    }
 
     public void setPuntuacion(int puntos) {
         puntuacion = puntos;

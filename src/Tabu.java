@@ -1,16 +1,19 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class Tabu {
 
     private Solucion mejorSolucion;
+    private Solucion modificada;
     private Filemanager datos;
     private Map<Integer,CeldaTabu> listaTabu;
-    private int frecInicio;
     private int direccion; // 1 derecha, 0 izquierda
     private Random rd;
 
     public Tabu(Filemanager data, Solucion greedy, int semilla){
-        mejorSolucion = greedy;
+        mejorSolucion = new Solucion(greedy);
+        modificada = new Solucion(greedy);
         datos = data;
         listaTabu = new HashMap<>();
         rd = new Random();
@@ -19,6 +22,7 @@ public class Tabu {
     }
 
     public void generaSolucion(){
+        int frecInicio=0;
         int iteraciones = 0;
         int size = datos.getTransmisores().size();
         while(iteraciones < 10000){

@@ -15,6 +15,7 @@ public class Main {
     public static final int SEMILLA3 = 36142277;
     public static final int SEMILLA4 = 45678123;
     public static final int SEMILLA5 = 14227736;
+    public static final int SEMILLARETO = 12345678;
 
     public static void main(String[] args) {
 
@@ -32,27 +33,27 @@ public class Main {
 
 
 
-        Filemanager fileFinal = filemanager9;
+        Filemanager fileFinal = filemanager6;
         //fileFinal.imprimeDatos();
-        int semillaFinal = SEMILLA1;
+        int semillaFinal = SEMILLARETO;
 
         Greedy miGreedy = new Greedy(fileFinal, semillaFinal);
         miGreedy.getSolucion().calculaRestriccion(fileFinal.getRestricciones());
         miGreedy.getResultados();
         BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
-        miBusqueda.generaSoluciones(fileFinal, 10000);
+        miBusqueda.generaSoluciones(fileFinal, 20000);
         miBusqueda.getResultados();
         Grasp miGrasp = new Grasp(fileFinal,semillaFinal);
         int iteraciones=0;
         int soluciones=0;
         double mediaTiempo=0;
         double mediaResultado=0;
-        while(iteraciones<10000) {
+        while(iteraciones<20000) {
             ++soluciones;
             miGrasp.generaSolucion();
             miGrasp.getResultados();
             BLGrasp miBLGrasp = new BLGrasp(miGrasp.getSolucion(), semillaFinal);
-            miBLGrasp.generaSoluciones(fileFinal, 10000, 400);
+            miBLGrasp.generaSoluciones(fileFinal, 20000, 800);
             miBLGrasp.getResultados();
             iteraciones += miBLGrasp.iteracionesConsumidas();
             mediaTiempo+=miBLGrasp.getTime();

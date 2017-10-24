@@ -1,14 +1,12 @@
+import java.util.ArrayList;
+
 public class CeldaTabu {
     private int idTransmisor;
-    private int numIntentos;
+    private ArrayList<FrecuenciaApariciones> frecuencias;
 
     public CeldaTabu(int id){
         idTransmisor = id;
-        numIntentos = 0;
-    }
-
-    public void otroIntento(){
-        ++numIntentos;
+        frecuencias= new ArrayList<>();
     }
 
     public int getIdTransmisor() {
@@ -19,12 +17,5 @@ public class CeldaTabu {
         this.idTransmisor = idTransmisor;
     }
 
-    public int getNumIntentos() {
-        return numIntentos;
-    }
-
-    public void reinicializarIntentos() {
-        this.numIntentos = 1;
-    }
 
 }
