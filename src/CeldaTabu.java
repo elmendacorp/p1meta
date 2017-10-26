@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class CeldaTabu {
     private int idTransmisor;
-    private ArrayList<FrecuenciaApariciones> frecuencias;
+    private ArrayList<Integer> frecuencias;
 
     public CeldaTabu(int id){
         idTransmisor = id;
@@ -17,5 +17,8 @@ public class CeldaTabu {
         this.idTransmisor = idTransmisor;
     }
 
+    public void aniadirFrecuencia(int frecuencia){
+        frecuencias.add(frecuencia);
+    }
 
 }

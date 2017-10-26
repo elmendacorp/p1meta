@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Tabu {
 
@@ -34,34 +31,38 @@ public class Tabu {
             int idTransmisor = datos.getTransmisores().get(rd.nextInt(size)).getId();
             int rango = datos.getTransmisores().get(idTransmisor).getRango();
             ArrayList<Integer> frecuencias = datos.getFrecuencias().get(rango).getFrecuencias();
-            int frRandom = datos.getFrecuencias().get(rd.nextInt(frecuencias.size())).getId();
+            int posFrRandom = datos.getFrecuencias().get(rango).getFrecuencias().get(rd.nextInt(frecuencias.size()));
 
             ArrayList<CosteFrecuencia> costesfrecuencias = new ArrayList<>();
-            int frecRandomInicial = frInicial(rango, frRandom);
 
             boolean tope = false;
 
-            while (costesfrecuencias.size() != 20 && tope == false) {
-                if (direccion == 0) {
-                    //izquierda
+            if (direccion == 0) {
+                for (int i = posFrRandom; costesfrecuencias.size() < 20 && !tope; --i) {
+                    int nuevaFrecuencia = datos.getFrecuencias().get(rango).getFrecuencias().get(i);
+                    int puntuacion = mejorSolucion.recalcular(datos,idTransmisor, nuevaFrecuencia, mejorSolucion);
 
-                } else {
+                    if(puntuacion < mejorSolucion.getPuntuacion()){
+                        mejorSolucion.getFrecuenciasAsignadas().get(idTransmisor).setFrecuencia(nuevaFrecuencia);
+                        mejorSolucion.setPuntuacion(puntuacion);
 
+                        CeldaTabu ct = new CeldaTabu(idTransmisor);
+                        ct.aniadirFrecuencia(nuevaFrecuencia);
+
+                        listaTabu.put(idTransmisor, ct);
+                    }
+
+                    if(i == 0) {
+                        tope = true;
+                    }
                 }
+            } else {
+
             }
 
         }
     }
 
-    private int frInicial(int rango, int frecInicial) {
-
-        for (int i = 0; i < datos.getFrecuencias().get(rango).getFrecuencias().size(); ++i) {
-            if (datos.getFrecuencias().get(rango).getFrecuencias().get(i) == frecInicial) {
-                return i;
-            }
-        }
-        return 0;
-    }
 
 
 }
