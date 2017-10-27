@@ -2,9 +2,9 @@ public class FrecuenciaApariciones {
     private int idFrecuencia;
     private int numApariciones;
 
-    public FrecuenciaApariciones(int var1){
-        idFrecuencia=var1;
-        numApariciones=1;
+    public FrecuenciaApariciones(int idFr) {
+        idFrecuencia = idFr;
+        numApariciones = 1;
     }
 
     public int getIdFrecuencia() {

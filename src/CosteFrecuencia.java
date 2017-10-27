@@ -2,9 +2,9 @@ public class CosteFrecuencia {
     private int frecuencia;
     private int coste;
 
-    public CosteFrecuencia(int var1, int var2){
-        frecuencia=var1;
-        coste=var2;
+    public CosteFrecuencia(int fr, int punt) {
+        frecuencia = fr;
+        coste = punt;
     }
 
     public int getFrecuencia() {
