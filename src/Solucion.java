@@ -89,7 +89,7 @@ public class Solucion implements Cloneable {
     }
 
     public Solucion(Solucion original){
-        frecuenciasAsignadas.clear();
+        frecuenciasAsignadas= new HashMap<>();
         for(FrecAsignada fr:original.frecuenciasAsignadas.values()){
             frecuenciasAsignadas.put(fr.getId(),new FrecAsignada(fr.getId(),fr.getFrecuencia()));
         }

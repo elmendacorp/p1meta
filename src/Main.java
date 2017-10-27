@@ -15,7 +15,7 @@ public class Main {
     public static final int SEMILLA3 = 36142277;
     public static final int SEMILLA4 = 45678123;
     public static final int SEMILLA5 = 14227736;
-    public static final int SEMILLARETO = 12345678;
+    public static final int SEMILLARETO = 21025923;
 
     public static void main(String[] args) {
 
@@ -33,35 +33,38 @@ public class Main {
 
 
 
-        Filemanager fileFinal = filemanager6;
+        Filemanager fileFinal = filemanager9;
         //fileFinal.imprimeDatos();
-        int semillaFinal = SEMILLARETO;
+        int semillaFinal = SEMILLA1;
 
         Greedy miGreedy = new Greedy(fileFinal, semillaFinal);
         miGreedy.getSolucion().calculaRestriccion(fileFinal.getRestricciones());
         miGreedy.getResultados();
-        BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
-        miBusqueda.generaSoluciones(fileFinal, 20000);
+        Tabu miTabu= new Tabu(fileFinal,miGreedy.getSolucion(),semillaFinal);
+        miTabu.generaSolucion(10000,2000);
+        /*BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
+        miBusqueda.generaSoluciones(fileFinal, 10000);
         miBusqueda.getResultados();
         Grasp miGrasp = new Grasp(fileFinal,semillaFinal);
         int iteraciones=0;
         int soluciones=0;
         double mediaTiempo=0;
         double mediaResultado=0;
-        while(iteraciones<20000) {
+        while(iteraciones<10000) {
             ++soluciones;
             miGrasp.generaSolucion();
             miGrasp.getResultados();
             BLGrasp miBLGrasp = new BLGrasp(miGrasp.getSolucion(), semillaFinal);
-            miBLGrasp.generaSoluciones(fileFinal, 20000, 800);
+            miBLGrasp.generaSoluciones(fileFinal, 10000, 400);
             miBLGrasp.getResultados();
             iteraciones += miBLGrasp.iteracionesConsumidas();
             mediaTiempo+=miBLGrasp.getTime();
             mediaTiempo+=miGrasp.getTime();
             mediaResultado+=miBLGrasp.getPuntuacion();
         }
-        System.out.println("Media de ejecuciones: Tiempo: "+mediaTiempo/soluciones+ " Puntuacion: "+ mediaResultado/soluciones);
 
+        System.out.println("Media de ejecuciones: Tiempo: "+mediaTiempo/soluciones+ " Puntuacion: "+ mediaResultado/soluciones);
+*/
 
 
 
