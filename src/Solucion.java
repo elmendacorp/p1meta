@@ -42,16 +42,16 @@ public class Solucion implements Cloneable {
      * calcula la puntuacion marginal de un transmisor en concreto
      *
      * @param datos
-     * @param posicion
+     * @param idTrx
      * @param frecuencia
      * @param estadoOriginal
      * @return
      */
-    public int recalcular(Filemanager datos, int posicion, int frecuencia, Solucion estadoOriginal) {
+    public int recalcular(Filemanager datos, int idTrx, int frecuencia, Solucion estadoOriginal) {
         int puntosOriginal = 0;
         int puntosModificado = 0;
-        int frecuenciaOriginal = estadoOriginal.frecuenciasAsignadas.get(posicion).getFrecuencia();
-        for (Restriccion rs : datos.getRestricciones().get(posicion)) {
+        int frecuenciaOriginal = estadoOriginal.frecuenciasAsignadas.get(idTrx).getFrecuencia();
+        for (Restriccion rs : datos.getRestricciones().get(idTrx)) {
             int frecuenciaRestringida = estadoOriginal.getFrecuenciasAsignadas().get(rs.getId_restriccion()).getFrecuencia();
             if (Math.abs(frecuencia - frecuenciaRestringida) <= rs.getTolerancia()) {
                 puntosOriginal += rs.getPenalizacion();
@@ -60,7 +60,7 @@ public class Solucion implements Cloneable {
                 puntosModificado += rs.getPenalizacion();
             }
         }
-        //System.out.println("Posicion " + posicion+" real "+puntosOriginal+" Modificado "+puntosModificado);
+        //System.out.println("IdTransmisor " + idTrx+" real "+puntosOriginal+" Modificado "+puntosModificado);
 
         if (puntosModificado < puntosOriginal) {
             return estadoOriginal.getPuntuacion() - ((puntosOriginal - puntosModificado) / 2);

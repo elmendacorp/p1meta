@@ -12,6 +12,7 @@ public class Tabu {
     private Map<Integer, CeldaTabu> listaTabu;
     private int direccion; // 1 derecha, 0 izquierda
     private Random rd;
+    private float time;
 
     public Tabu(Filemanager data, Solucion greedy, int semilla) {
         mejorSolucion = new Solucion(greedy);
@@ -21,9 +22,11 @@ public class Tabu {
         rd = new Random();
         rd.setSeed(semilla);
         direccion = rd.nextInt(2);
+        time = System.nanoTime();
     }
 
     public void generaSolucion(int maxIteraciones, int maxSinMejora) {
+        time = System.nanoTime();
         Iterator<FrecAsignada> listItera = modificada.getFrecuenciasAsignadas().values().iterator();
         direccion = rd.nextInt(2);
         int size = datos.getTransmisores().size();
@@ -62,7 +65,12 @@ public class Tabu {
             }
 
             ++iterSinMejora;
+            if (!listItera.hasNext()) {
+                listItera = modificada.getFrecuenciasAsignadas().values().iterator();
+            }
+
             FrecAsignada actual = listItera.next();
+
             direccion = rd.nextInt(2);
             rango = datos.getTransmisores().get(actual.getId()).getRango();
             posFrRandom = rd.nextInt(datos.getFrecuencias().get(rango).getFrecuencias().size());
@@ -71,7 +79,7 @@ public class Tabu {
 
             // calcula las 20 frecuencias asociadas a un transmisor
             // calcula el coste por cada frecuencia
-            listaFrecuencias = calculaVecinos(rango, posFrRandom);
+            listaFrecuencias = calculaVecinos(rango, posFrRandom, actual.getId());
             iteraciones += listaFrecuencias.size();
 
             // coge la mejor
@@ -102,16 +110,16 @@ public class Tabu {
             }
 
         }
+        time = System.nanoTime() - time;
     }
 
-    private ArrayList<CosteFrecuencia> calculaVecinos(int rango, int posInicial) {
+    private ArrayList<CosteFrecuencia> calculaVecinos(int rango, int posInicial, int idTrx) {
         ArrayList<CosteFrecuencia> finalList = new ArrayList<>();
         ArrayList<Integer> frecuencias = datos.getFrecuencias().get(rango).getFrecuencias();
-        System.out.println(posInicial);
-        System.out.println("La posicion inicial es :" + posInicial + " y su rango es: " + rango + "y su num de frecuencias " + frecuencias.size());
+
         if (frecuencias.size() <= 20) {
             for (Integer fr : frecuencias) {
-                int puntuacion = modificada.recalcular(datos, posInicial, fr, modificada);
+                int puntuacion = modificada.recalcular(datos, idTrx, fr, modificada);
                 finalList.add(new CosteFrecuencia(fr, puntuacion));
             }
 
@@ -122,7 +130,7 @@ public class Tabu {
                     if (i == 0) {
                         i = frecuencias.size() - 1;
                     }
-                    int puntuacion = modificada.recalcular(datos, posInicial, frecuencias.get(i), modificada);
+                    int puntuacion = modificada.recalcular(datos, idTrx, frecuencias.get(i), modificada);
                     finalList.add(new CosteFrecuencia(frecuencias.get(i), puntuacion));
                 }
             } else {
@@ -130,7 +138,7 @@ public class Tabu {
                     if (i == frecuencias.size() - 1) {
                         i = 0;
                     }
-                    int puntuacion = modificada.recalcular(datos, posInicial, frecuencias.get(i), modificada);
+                    int puntuacion = modificada.recalcular(datos, idTrx, frecuencias.get(i), modificada);
                     finalList.add(new CosteFrecuencia(frecuencias.get(i), puntuacion));
 
                 }
@@ -152,4 +160,15 @@ public class Tabu {
         CosteFrecuencia cf = new CosteFrecuencia(mejorFr, mejorCoste);
         return cf;
     }
+
+    /**
+     * Funcion para mostrar los resultados de la ejecucion
+     */
+    public void getResultados() {
+        System.out.println("Tabu: "+mejorSolucion.getPuntuacion() + " " + time / 1000000 + " ms");
+        for (FrecAsignada fr : mejorSolucion.getFrecuenciasAsignadas().values()) {
+            //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
+        }
+    }
+
 }
