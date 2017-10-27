@@ -26,10 +26,15 @@ public class Tabu {
         int size = datos.getTransmisores().size();
         int idTransmisor = 0;
         int rango = 0;
-        ArrayList<CosteFrecuencia> listaFrecuencias = new ArraList<>();
+        ArrayList<CosteFrecuencia> listaFrecuencias = new ArrayList<>();
         int posFrRandom = 0;
 
         while (iteraciones < 10000) {
+
+            //Comprueba que no has llegado al estancamiento
+
+            // si has llegado realiza la reinicializacion copiando lo que tengas en la estuctura de celta tabu
+
             ++iteraciones;
             direccion = Math.abs(rd.nextInt(2));
             listaFrecuencias.clear();
@@ -37,6 +42,14 @@ public class Tabu {
             idTransmisor = datos.getTransmisores().get(rd.nextInt(size)).getId();
             rango = datos.getTransmisores().get(idTransmisor).getRango();
             listaFrecuencias = copiaFrecuencias(rango);
+            // calcula las 20 frecuencias asociadas a un transmisor
+
+            // calcula el coste por cada frecuencia
+
+            // coge la mejor y decide si vas a meterla en las soluciones
+
+            // añade la frecuencia a la estructuda de celtatabu para mantener los transmisores con las mejores frecuencias y sus apariciones
+
 
 
             posFrRandom = rd.nextInt(frecuencias.size());
