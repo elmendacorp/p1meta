@@ -27,7 +27,7 @@ public class CeldaTabu {
         }
     }
 
-    public HashMap<Integer,FrecuenciaApariciones> getFrecuenciasNodo(int id_nodo){
+    public HashMap<Integer,FrecuenciaApariciones> getFrecuenciasNodo(){
         return frecuencias;
     }
 

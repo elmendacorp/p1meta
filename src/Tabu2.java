@@ -42,12 +42,18 @@ public class Tabu2 {
                 iterSinMejora=0;
                 for(FrecAsignada fr: modificada.getFrecuenciasAsignadas().values()){
                     if(listaTabu.containsKey(fr.getId())){
-                        CeldaTabu miCelda= listaTabu.get(fr.getId()).
+                        int mejor=0;
+                        int idMejor=0;
+                        for(FrecuenciaApariciones fa:listaTabu.get(fr.getId()).getFrecuenciasNodo().values()){
+                            if(fa.getNumApariciones()>mejor){
+                                mejor=fa.getNumApariciones();
+                                idMejor=fa.getIdFrecuencia();
+                            }
+                        }
+                        modificada.getFrecuenciasAsignadas().get(fr.getId()).setFrecuencia(idMejor);
                     }
                 }
             }
-
-            // si has llegado realiza la reinicializacion copiando lo que tengas en la estuctura de celta tabu
 
             // calcula las 20 frecuencias asociadas a un transmisor
 
