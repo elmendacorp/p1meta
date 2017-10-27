@@ -61,17 +61,18 @@ public class Tabu {
                 }
             }
 
-            ++iteraciones;
             ++iterSinMejora;
-            direccion = rd.nextInt(2);
-            posFrRandom = rd.nextInt(datos.getFrecuencias().get(rango).getFrecuencias().size());
-            listaFrecuencias.clear();
             FrecAsignada actual = listItera.next();
+            direccion = rd.nextInt(2);
             rango = datos.getTransmisores().get(actual.getId()).getRango();
+            posFrRandom = rd.nextInt(datos.getFrecuencias().get(rango).getFrecuencias().size());
+            listaFrecuencias = new ArrayList<>();
+
 
             // calcula las 20 frecuencias asociadas a un transmisor
             // calcula el coste por cada frecuencia
             listaFrecuencias = calculaVecinos(rango, posFrRandom);
+            iteraciones += listaFrecuencias.size();
 
             // coge la mejor
             CosteFrecuencia mejorFrecuencia = mejorCosteFrecuencia(listaFrecuencias);
@@ -96,7 +97,7 @@ public class Tabu {
 
             }
 
-            if(modificada.getPuntuacion() < mejorSolucion.getPuntuacion()){
+            if (modificada.getPuntuacion() < mejorSolucion.getPuntuacion()) {
                 mejorSolucion = new Solucion(modificada);
             }
 
@@ -106,7 +107,8 @@ public class Tabu {
     private ArrayList<CosteFrecuencia> calculaVecinos(int rango, int posInicial) {
         ArrayList<CosteFrecuencia> finalList = new ArrayList<>();
         ArrayList<Integer> frecuencias = datos.getFrecuencias().get(rango).getFrecuencias();
-
+        System.out.println(posInicial);
+        System.out.println("La posicion inicial es :" + posInicial + " y su rango es: " + rango + "y su num de frecuencias " + frecuencias.size());
         if (frecuencias.size() <= 20) {
             for (Integer fr : frecuencias) {
                 int puntuacion = modificada.recalcular(datos, posInicial, fr, modificada);
@@ -117,19 +119,20 @@ public class Tabu {
 
             if (direccion == 0) {
                 for (int i = posInicial; finalList.size() < 20; --i) {
-                    int puntuacion = modificada.recalcular(datos, posInicial, frecuencias.get(i), modificada);
-                    finalList.add(new CosteFrecuencia(frecuencias.get(i), puntuacion));
                     if (i == 0) {
                         i = frecuencias.size() - 1;
                     }
+                    int puntuacion = modificada.recalcular(datos, posInicial, frecuencias.get(i), modificada);
+                    finalList.add(new CosteFrecuencia(frecuencias.get(i), puntuacion));
                 }
             } else {
                 for (int i = posInicial; finalList.size() < 20; ++i) {
-                    int puntuacion = modificada.recalcular(datos, posInicial, frecuencias.get(i), modificada);
-                    finalList.add(new CosteFrecuencia(frecuencias.get(i), puntuacion));
                     if (i == frecuencias.size() - 1) {
                         i = 0;
                     }
+                    int puntuacion = modificada.recalcular(datos, posInicial, frecuencias.get(i), modificada);
+                    finalList.add(new CosteFrecuencia(frecuencias.get(i), puntuacion));
+
                 }
             }
         }
