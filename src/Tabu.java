@@ -23,15 +23,19 @@ public class Tabu {
         int frecInicio = 0;
         int iteraciones = 0;
         int size = datos.getTransmisores().size();
+        int idTransmisor = 0;
+        int rango = 0;
+        ArrayList<Integer> frecuencias = new ArrayList<>();
+        int posFrRandom = 0;
 
         while (iteraciones < 10000) {
             ++iteraciones;
             direccion = Math.abs(rd.nextInt(2));
 
-            int idTransmisor = datos.getTransmisores().get(rd.nextInt(size)).getId();
-            int rango = datos.getTransmisores().get(idTransmisor).getRango();
-            ArrayList<Integer> frecuencias = datos.getFrecuencias().get(rango).getFrecuencias();
-            int posFrRandom = datos.getFrecuencias().get(rango).getFrecuencias().get(rd.nextInt(frecuencias.size()));
+            idTransmisor = datos.getTransmisores().get(rd.nextInt(size)).getId();
+            rango = datos.getTransmisores().get(idTransmisor).getRango();
+            frecuencias = datos.getFrecuencias().get(rango).getFrecuencias();
+            posFrRandom = rd.nextInt(frecuencias.size());
 
             ArrayList<CosteFrecuencia> costesfrecuencias = new ArrayList<>();
 
