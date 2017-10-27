@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CeldaTabu {
     private int idTransmisor;
-    private ArrayList<Integer> frecuencias;
+    private HashMap<Integer,FrecuenciaApariciones> frecuencias;
 
     public CeldaTabu(int id){
         idTransmisor = id;
-        frecuencias= new ArrayList<>();
+        frecuencias= new HashMap<>();
     }
 
     public int getIdTransmisor() {
@@ -18,7 +19,16 @@ public class CeldaTabu {
     }
 
     public void aniadirFrecuencia(int frecuencia){
-        frecuencias.add(frecuencia);
+        if(frecuencias.containsKey(frecuencia)){
+            frecuencias.get(frecuencia).setNumApariciones(frecuencias.get(frecuencia).getNumApariciones()+1);
+        }else{
+
+            frecuencias.put(idTransmisor,new FrecuenciaApariciones(frecuencia));
+        }
+    }
+
+    public HashMap<Integer,FrecuenciaApariciones> getFrecuenciasNodo(int id_nodo){
+        return frecuencias;
     }
 
 }
