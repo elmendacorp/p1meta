@@ -17,6 +17,7 @@ public class Tabu {
         rd = new Random();
         rd.setSeed(semilla);
         direccion = Math.abs(rd.nextInt(2));
+
     }
 
     public void generaSolucion() {
@@ -25,41 +26,25 @@ public class Tabu {
         int size = datos.getTransmisores().size();
         int idTransmisor = 0;
         int rango = 0;
-        ArrayList<Integer> frecuencias = new ArrayList<>();
+        ArrayList<CosteFrecuencia> listaFrecuencias = new ArraList<>();
         int posFrRandom = 0;
 
         while (iteraciones < 10000) {
             ++iteraciones;
             direccion = Math.abs(rd.nextInt(2));
+            listaFrecuencias.clear();
 
             idTransmisor = datos.getTransmisores().get(rd.nextInt(size)).getId();
             rango = datos.getTransmisores().get(idTransmisor).getRango();
-            frecuencias = datos.getFrecuencias().get(rango).getFrecuencias();
+            listaFrecuencias = copiaFrecuencias(rango);
+
+
             posFrRandom = rd.nextInt(frecuencias.size());
 
             ArrayList<CosteFrecuencia> costesfrecuencias = new ArrayList<>();
 
-            boolean tope = false;
-
             if (direccion == 0) {
-                for (int i = posFrRandom; costesfrecuencias.size() < 20 && !tope; --i) {
-                    int nuevaFrecuencia = datos.getFrecuencias().get(rango).getFrecuencias().get(i);
-                    int puntuacion = mejorSolucion.recalcular(datos,idTransmisor, nuevaFrecuencia, mejorSolucion);
 
-                    if(puntuacion < mejorSolucion.getPuntuacion()){
-                        mejorSolucion.getFrecuenciasAsignadas().get(idTransmisor).setFrecuencia(nuevaFrecuencia);
-                        mejorSolucion.setPuntuacion(puntuacion);
-
-                        CeldaTabu ct = new CeldaTabu(idTransmisor);
-                        ct.aniadirFrecuencia(nuevaFrecuencia);
-
-                        listaTabu.put(idTransmisor, ct);
-                    }
-
-                    if(i == 0) {
-                        tope = true;
-                    }
-                }
             } else {
 
             }
@@ -67,6 +52,33 @@ public class Tabu {
         }
     }
 
+    private ArrayList<CosteFrecuencia> copiaFrecuencias(int rango, int posInicial, int direccion) {
+        ArrayList<CosteFrecuencia> finalList = new ArrayList<>();
+        ArrayList<Integer> frecuencias = datos.getFrecuencias().get(rango).getFrecuencias();
 
+        if (frecuencias.size() <= 20) {
+            for (Integer fr : datos.getFrecuencias().get(rango).getFrecuencias()) {
+                finalList.add(new CosteFrecuencia(fr,0));
+            }
 
+        } else {
+
+            if (direccion == 0) {
+                for (int i = posInicial; finalList.size() < 20; --i) {
+                    finalList.add(new CosteFrecuencia(frecuencias.get(i),0));
+                    if (i == 0) {
+                        i = frecuencias.size() - 1;
+                    }
+                }
+            } else {
+                for (int i = posInicial; finalList.size() < 20; ++i) {
+                    finalList.add(new CosteFrecuencia(frecuencias.get(i),0));
+                    if (i == frecuencias.size() - 1) {
+                        i = 0;
+                    }
+                }
+            }
+        }
+        return finalList;
+    }
 }
