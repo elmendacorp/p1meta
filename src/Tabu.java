@@ -37,13 +37,13 @@ public class Tabu {
 
         while (iteraciones < maxIteraciones) {
 
-            //Comprueba que no has llegado al estancamiento
-            // si has llegado realiza la reinicializacion copiando lo que tengas en la estuctura de celta tabu
+            // Comprueba que no has llegado al estancamiento
+            // Si has llegado realiza la reinicializacion copiando lo que tengas en la estuctura de celta tabu
             if (!listItera.hasNext()) {
                 listItera = modificada.getFrecuenciasAsignadas().values().iterator();
             }
-            //Comprueba que no has llegado al estancamiento
 
+            //Comprueba que no has llegado al estancamiento
             if (iterSinMejora >= maxSinMejora) {
                 iterSinMejora = 0;
                 for (FrecAsignada fr : modificada.getFrecuenciasAsignadas().values()) {
@@ -66,8 +66,8 @@ public class Tabu {
             rango = datos.getTransmisores().get(actual.getId()).getRango();
             posFrRandom = rd.nextInt(datos.getFrecuencias().get(rango).getFrecuencias().size());
 
-            // calcula las 20 frecuencias asociadas a un transmisor
-            // calcula el coste por cada frecuencia
+            // Calcula las 20 frecuencias asociadas a un transmisor
+            // Calcula el coste por cada frecuencia
             listaFrecuencias = calculaVecinos(rango, posFrRandom, actual.getId());
             iteraciones += listaFrecuencias.size();
 
@@ -75,7 +75,7 @@ public class Tabu {
             CosteFrecuencia mejorFrecuencia = mejorCosteFrecuencia(listaFrecuencias);
 
             // Decide si vas a meterla en las soluciones
-            // añade la frecuencia a la estructuda de celtatabu para mantener los transmisores con las mejores frecuencias y sus apariciones
+            // Añade la frecuencia a la estructuda de celtatabu para mantener los transmisores con las mejores frecuencias y sus apariciones
             if (listaTabu.containsKey(actual.getId())) {
                 listaTabu.get(actual.getId()).aniadirFrecuencia(mejorFrecuencia.getFrecuencia());
                 modificada.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(mejorFrecuencia.getFrecuencia());
@@ -90,10 +90,9 @@ public class Tabu {
 
             if (modificada.getPuntuacion() < mejorSolucion.getPuntuacion()) {
                 mejorSolucion = new Solucion(modificada);
-            }else{
-                iterSinMejora+=listaFrecuencias.size();
+            } else {
+                iterSinMejora += listaFrecuencias.size();
             }
-
         }
         time = System.nanoTime() - time;
     }
@@ -155,7 +154,6 @@ public class Tabu {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
     }
-
 
 
 }
