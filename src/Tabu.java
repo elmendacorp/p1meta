@@ -40,9 +40,7 @@ public class Tabu {
 
             //Comprueba que no has llegado al estancamiento
             // si has llegado realiza la reinicializacion copiando lo que tengas en la estuctura de celta tabu
-            if (listItera.hasNext()) {
-                listItera.next();
-            } else {
+            if (!listItera.hasNext()) {
                 listItera = modificada.getFrecuenciasAsignadas().values().iterator();
             }
             //Comprueba que no has llegado al estancamiento
@@ -63,29 +61,21 @@ public class Tabu {
                     }
                 }
             }
-
-            ++iterSinMejora;
-            if (!listItera.hasNext()) {
-                listItera = modificada.getFrecuenciasAsignadas().values().iterator();
-            }
-
             FrecAsignada actual = listItera.next();
 
             direccion = rd.nextInt(2);
             rango = datos.getTransmisores().get(actual.getId()).getRango();
             posFrRandom = rd.nextInt(datos.getFrecuencias().get(rango).getFrecuencias().size());
-            listaFrecuencias = new ArrayList<>();
-
 
             // calcula las 20 frecuencias asociadas a un transmisor
             // calcula el coste por cada frecuencia
             listaFrecuencias = calculaVecinos(rango, posFrRandom, actual.getId());
             iteraciones += listaFrecuencias.size();
 
-            // coge la mejor
+            // Coge la mejor
             CosteFrecuencia mejorFrecuencia = mejorCosteFrecuencia(listaFrecuencias);
 
-            //  Decide si vas a meterla en las soluciones
+            // Decide si vas a meterla en las soluciones
             // añade la frecuencia a la estructuda de celtatabu para mantener los transmisores con las mejores frecuencias y sus apariciones
             if (listaTabu.containsKey(actual.getId())) {
                 if (listaTabu.get(actual.getId()).getIdTransmisor() == mejorFrecuencia.getFrecuencia()) {
@@ -110,6 +100,7 @@ public class Tabu {
             }
 
         }
+        mejorSolucion.calculaRestriccion(datos.getRestricciones());
         time = System.nanoTime() - time;
     }
 
@@ -165,7 +156,7 @@ public class Tabu {
      * Funcion para mostrar los resultados de la ejecucion
      */
     public void getResultados() {
-        System.out.println("Tabu: "+mejorSolucion.getPuntuacion() + " " + time / 1000000 + " ms");
+        System.out.println("Tabu: " + mejorSolucion.getPuntuacion() + " " + time / 1000000 + " ms");
         for (FrecAsignada fr : mejorSolucion.getFrecuenciasAsignadas().values()) {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
