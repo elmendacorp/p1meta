@@ -88,7 +88,6 @@ public class Tabu {
                 modificada.calculaRestriccion(datos.getRestricciones());
             }
 
-
             if (modificada.getPuntuacion() < mejorSolucion.getPuntuacion()) {
                 mejorSolucion = new Solucion(modificada);
             }else{
@@ -106,7 +105,7 @@ public class Tabu {
 
         if (frecuencias.size() <= 20) {
             for (Integer fr : frecuencias) {
-                int puntuacion = modificada.recalcular(datos, idTrx, fr, modificada);
+                int puntuacion = modificada.recalcularTabu(datos, idTrx, fr, modificada);
                 finalList.add(new CosteFrecuencia(fr, puntuacion));
             }
 
@@ -117,7 +116,7 @@ public class Tabu {
                     if (i == 0) {
                         i = frecuencias.size() - 1;
                     }
-                    int puntuacion = modificada.recalcular(datos, idTrx, frecuencias.get(i), modificada);
+                    int puntuacion = modificada.recalcularTabu(datos, idTrx, frecuencias.get(i), modificada);
                     finalList.add(new CosteFrecuencia(frecuencias.get(i), puntuacion));
                 }
             } else {
