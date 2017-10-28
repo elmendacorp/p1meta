@@ -95,7 +95,6 @@ public class Tabu {
             }
 
         }
-
         time = System.nanoTime() - time;
     }
 

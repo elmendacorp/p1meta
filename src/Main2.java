@@ -41,7 +41,7 @@ public class Main2 {
                 BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), in);
                 miBusqueda.generaSoluciones(fl, 10000);
                 miBusqueda.getResultados();
-               /* Grasp miGrasp = new Grasp(fl,in);
+                Grasp miGrasp = new Grasp(fl,in);
                 int iteraciones=0;
                 int soluciones=0;
                 double mediaTiempo=0;
@@ -49,17 +49,18 @@ public class Main2 {
                 while(iteraciones<10000) {
                     ++soluciones;
                     miGrasp.generaSolucion();
+                    //miGrasp.getResultados();
                     BLGrasp miBLGrasp = new BLGrasp(miGrasp.getSolucion(), in);
                     miBLGrasp.generaSoluciones(fl, 10000, 400);
+                    //miBLGrasp.getResultados();
                     iteraciones += miBLGrasp.iteracionesConsumidas();
                     mediaTiempo+=miBLGrasp.getTime();
                     mediaTiempo+=miGrasp.getTime();
                     mediaResultado+=miBLGrasp.getPuntuacion();
-                    miBLGrasp.getResultados();
                 }
                 System.out.println("Media de ejecuciones: Tiempo: "+mediaTiempo/soluciones+ " Puntuacion: "+ mediaResultado/soluciones);
                 System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>");
-                */
+
             }
         }
 

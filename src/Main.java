@@ -46,7 +46,7 @@ public class Main {
         BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
         miBusqueda.generaSoluciones(fileFinal, 10000);
         miBusqueda.getResultados();
-        /*Grasp miGrasp = new Grasp(fileFinal,semillaFinal);
+        Grasp miGrasp = new Grasp(fileFinal,semillaFinal);
         int iteraciones=0;
         int soluciones=0;
         double mediaTiempo=0;
@@ -65,7 +65,7 @@ public class Main {
         }
 
         System.out.println("Media de ejecuciones: Tiempo: "+mediaTiempo/soluciones+ " Puntuacion: "+ mediaResultado/soluciones);
-*/
+
 
 
 
