@@ -29,11 +29,10 @@ public class Tabu {
         time = System.nanoTime();
         Iterator<FrecAsignada> listItera = modificada.getFrecuenciasAsignadas().values().iterator();
         direccion = rd.nextInt(2);
-        int size = datos.getTransmisores().size();
         int iteraciones = 0;
         int iterSinMejora = 0;
-        int rango = 0;
-        int posFrRandom = 0;
+        int rango;
+        int posFrRandom;
         ArrayList<CosteFrecuencia> listaFrecuencias = new ArrayList<>();
 
         while (iteraciones < maxIteraciones) {
@@ -78,29 +77,26 @@ public class Tabu {
             // Decide si vas a meterla en las soluciones
             // añade la frecuencia a la estructuda de celtatabu para mantener los transmisores con las mejores frecuencias y sus apariciones
             if (listaTabu.containsKey(actual.getId())) {
-                if (listaTabu.get(actual.getId()).getIdTransmisor() == mejorFrecuencia.getFrecuencia()) {
-                    listaTabu.get(actual.getId()).aniadirFrecuencia(mejorFrecuencia.getFrecuencia());
-                } else {
-                    modificada.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(mejorFrecuencia.getFrecuencia());
-                    modificada.setPuntuacion(mejorFrecuencia.getCoste());
-                }
+                listaTabu.get(actual.getId()).aniadirFrecuencia(mejorFrecuencia.getFrecuencia());
+                modificada.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(mejorFrecuencia.getFrecuencia());
+                modificada.calculaRestriccion(datos.getRestricciones());
             } else {
                 CeldaTabu cd = new CeldaTabu(actual.getId());
                 cd.aniadirFrecuencia(mejorFrecuencia.getFrecuencia());
-
                 listaTabu.put(actual.getId(), cd);
-
                 modificada.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(mejorFrecuencia.getFrecuencia());
-                modificada.setPuntuacion(mejorFrecuencia.getCoste());
-
+                modificada.calculaRestriccion(datos.getRestricciones());
             }
+
 
             if (modificada.getPuntuacion() < mejorSolucion.getPuntuacion()) {
                 mejorSolucion = new Solucion(modificada);
+            }else{
+                iterSinMejora+=listaFrecuencias.size();
             }
 
         }
-        mejorSolucion.calculaRestriccion(datos.getRestricciones());
+
         time = System.nanoTime() - time;
     }
 

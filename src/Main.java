@@ -33,7 +33,7 @@ public class Main {
 
 
 
-        Filemanager fileFinal = filemanager9;
+        Filemanager fileFinal = filemanager1;
         //fileFinal.imprimeDatos();
         int semillaFinal = SEMILLA1;
 
@@ -42,6 +42,7 @@ public class Main {
         miGreedy.getResultados();
         Tabu miTabu= new Tabu(fileFinal,miGreedy.getSolucion(),semillaFinal);
         miTabu.generaSolucion(10000,2000);
+        miTabu.getResultados();
         /*BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
         miBusqueda.generaSoluciones(fileFinal, 10000);
         miBusqueda.getResultados();
