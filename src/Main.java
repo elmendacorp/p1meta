@@ -43,10 +43,10 @@ public class Main {
         Tabu miTabu= new Tabu(fileFinal,miGreedy.getSolucion(),semillaFinal);
         miTabu.generaSolucion(10000,2000);
         miTabu.getResultados();
-        /*BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
+        BusquedaLocal miBusqueda = new BusquedaLocal(miGreedy.getSolucion(), semillaFinal);
         miBusqueda.generaSoluciones(fileFinal, 10000);
         miBusqueda.getResultados();
-        Grasp miGrasp = new Grasp(fileFinal,semillaFinal);
+        /*Grasp miGrasp = new Grasp(fileFinal,semillaFinal);
         int iteraciones=0;
         int soluciones=0;
         double mediaTiempo=0;

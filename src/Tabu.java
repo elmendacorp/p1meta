@@ -125,7 +125,7 @@ public class Tabu {
                     if (i == frecuencias.size() - 1) {
                         i = 0;
                     }
-                    int puntuacion = modificada.recalcular(datos, idTrx, frecuencias.get(i), modificada);
+                    int puntuacion = modificada.recalcularTabu(datos, idTrx, frecuencias.get(i), modificada);
                     finalList.add(new CosteFrecuencia(frecuencias.get(i), puntuacion));
 
                 }
@@ -157,5 +157,7 @@ public class Tabu {
             //System.out.println(fr.getId()+"\t"+fr.getFrecuencia());
         }
     }
+
+
 
 }

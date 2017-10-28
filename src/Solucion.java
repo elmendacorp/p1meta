@@ -108,5 +108,22 @@ public class Solucion implements Cloneable {
         return frecuenciasAsignadas;
     }
 
+    public int recalcularTabu(Filemanager datos, int idTrx, int frecuencia, Solucion estadoOriginal) {
+        int puntosOriginal = 0;
+        int puntosModificado = 0;
+        int frecuenciaOriginal = estadoOriginal.getFrecuenciasAsignadas().get(idTrx).getFrecuencia();
+        for (Restriccion rs : datos.getRestricciones().get(idTrx)) {
+            int frecuenciaRestringida = estadoOriginal.getFrecuenciasAsignadas().get(rs.getId_restriccion()).getFrecuencia();
+            if (Math.abs(frecuencia - frecuenciaRestringida) <= rs.getTolerancia()) {
+                puntosOriginal += rs.getPenalizacion();
+            }
+            if (Math.abs(frecuenciaOriginal - frecuenciaRestringida) <= rs.getTolerancia()) {
+                puntosModificado += rs.getPenalizacion();
+            }
+        }
+        //System.out.println("IdTransmisor " + idTrx+" real "+puntosOriginal+" Modificado "+puntosModificado);
+
+        return puntosModificado;
+    }
 
 }
