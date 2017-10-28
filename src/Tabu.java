@@ -43,7 +43,8 @@ public class Tabu {
                 listItera = modificada.getFrecuenciasAsignadas().values().iterator();
             }
 
-            //Comprueba que no has llegado al estancamiento
+            // Comprueba que no has llegado al estancamiento
+            // Si llega al estancamiento, nuestra solucion ahora estara compuesta por las frecuencias mas frecuentes
             if (iterSinMejora >= maxSinMejora) {
                 iterSinMejora = 0;
                 for (FrecAsignada fr : modificada.getFrecuenciasAsignadas().values()) {
@@ -75,7 +76,7 @@ public class Tabu {
             CosteFrecuencia mejorFrecuencia = mejorCosteFrecuencia(listaFrecuencias);
 
             // Decide si vas a meterla en las soluciones
-            // Añade la frecuencia a la estructuda de celtatabu para mantener los transmisores con las mejores frecuencias y sus apariciones
+            // Añade la frecuencia a la estructura de celtatabu para mantener los transmisores con las mejores frecuencias y sus apariciones
             if (listaTabu.containsKey(actual.getId())) {
                 listaTabu.get(actual.getId()).aniadirFrecuencia(mejorFrecuencia.getFrecuencia());
                 modificada.getFrecuenciasAsignadas().get(actual.getId()).setFrecuencia(mejorFrecuencia.getFrecuencia());
@@ -88,6 +89,7 @@ public class Tabu {
                 modificada.calculaRestriccion(datos.getRestricciones());
             }
 
+            // Si al movernos a este vecino, mejoramos la solucion global, ahora esa sera nuestra solucion global
             if (modificada.getPuntuacion() < mejorSolucion.getPuntuacion()) {
                 mejorSolucion = new Solucion(modificada);
             } else {
@@ -97,6 +99,14 @@ public class Tabu {
         time = System.nanoTime() - time;
     }
 
+    /**
+     * Funcion para devolver la frecuencia con menor coste en la solucion actual.
+     *
+     * @param rango      ArrayList que contiene las frecuencias con los costes a recorrer.
+     * @param posInicial Posicion aleatoria de una frecuencia por la que se empezar
+     * @param idTrx      Id del transmisor actual
+     * @return ArrayList que contiene los vecinos y sus puntuaciones
+     */
     private ArrayList<CosteFrecuencia> calculaVecinos(int rango, int posInicial, int idTrx) {
         ArrayList<CosteFrecuencia> finalList = new ArrayList<>();
         ArrayList<Integer> frecuencias = datos.getFrecuencias().get(rango).getFrecuencias();
@@ -131,9 +141,15 @@ public class Tabu {
         return finalList;
     }
 
+    /**
+     * Funcion para devolver la frecuencia con menor coste en la solucion actual.
+     *
+     * @param listaFr ArrayList que contiene las frecuencias con los costes a recorrer.
+     * @return Un objeto CosteFrecuencia que contiene la frecuencia con la mejor puntuacion.
+     */
     private CosteFrecuencia mejorCosteFrecuencia(ArrayList<CosteFrecuencia> listaFr) {
-        int mejorFr = 0;
-        int mejorCoste = 999999;
+        int mejorFr = listaFr.get(0).getFrecuencia();
+        int mejorCoste = listaFr.get(0).getCoste();
 
         for (CosteFrecuencia cf : listaFr) {
             if (cf.getCoste() < mejorCoste) {
@@ -146,7 +162,7 @@ public class Tabu {
     }
 
     /**
-     * Funcion para mostrar los resultados de la ejecucion
+     * Funcion para mostrar los resultados de la ejecucion con los tiempos.
      */
     public void getResultados() {
         System.out.println("Tabu: " + mejorSolucion.getPuntuacion() + " " + time / 1000000 + " ms");
